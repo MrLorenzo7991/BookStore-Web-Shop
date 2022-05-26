@@ -13,5 +13,6 @@
         {
             Name = name;
         }
+        public List <Book> books { get; set; }
     }
 }
