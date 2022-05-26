@@ -1,10 +1,11 @@
 ﻿using BookStore_Web_Shop.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStore_Web_Shop.Models
 {
     public class SellLog
     {
-        [key]
+        [Key]
         public string Id { get; set; } 
         public DateTime Date { get; set; }
         [MoreThan0Validation]
