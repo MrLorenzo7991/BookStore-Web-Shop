@@ -15,9 +15,25 @@ namespace BookStore_Web_Shop.Controllers
 
                 BooksCategories booksCategories = new(books,categories);
 
-                return View(booksCategories);
+                return View("ViewAdmin",booksCategories);
             }
+        }
 
+        public IActionResult Details(int id)
+        {
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                Book book = db.Books.Find(id);
+
+                if(book != null)
+                {
+                    return View(book);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
     }
 }
