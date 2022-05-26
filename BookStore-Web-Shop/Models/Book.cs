@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookStore_Web_Shop.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStore_Web_Shop.Models
 {
@@ -12,17 +13,20 @@ namespace BookStore_Web_Shop.Models
         public string Title { get; set; }
         
         [Required]
+        [Url]
         public string UrlImage { get; set; }
         
         [Required]
         public string Description { get; set; }
         
         [Required]
+        [MoreThan0Validation]
         public double Price { get; set; }
        
         [Required]
+        [MoreThan0Validation]
         public int Quantity { get; set; } = 0;
-       
+        [MoreThan0Validation]
         public int NumberOfLikes { get; set; } = 0;
 
         public Book()
@@ -37,9 +41,13 @@ namespace BookStore_Web_Shop.Models
             Price = price;
             NumberOfLikes = numberOfLikes;
         }
-        
+        //1-n category
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        //1-n Order
+        public List<OrderLog> OrderLogs { get; set; }
+        //1-n Sell
+        public List<SellLog> SellLogs { get; set; }
     }
 
 }
