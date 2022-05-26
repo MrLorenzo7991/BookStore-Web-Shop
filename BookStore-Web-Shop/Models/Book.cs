@@ -1,5 +1,6 @@
 ﻿using BookStore_Web_Shop.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore_Web_Shop.Models
 {
@@ -17,6 +18,7 @@ namespace BookStore_Web_Shop.Models
         public string UrlImage { get; set; }
         
         [Required]
+        [Column(TypeName="text")]
         public string Description { get; set; }
         
         [Required]
