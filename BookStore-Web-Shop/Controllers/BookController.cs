@@ -55,14 +55,15 @@ namespace BookStore_Web_Shop.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Create(BookCategories data)
         {
             if (!ModelState.IsValid)
             {
                 using (BookStoreContext db = new BookStoreContext())
                 {
-                    data.Book = new Book();
-                    data.Categories = data.Categories.ToList();
+
+                    data.Categories = db.Categories.ToList();
 
                     return View("AddBook",data);
                 }
@@ -78,10 +79,12 @@ namespace BookStore_Web_Shop.Controllers
                 bookToCreate.UrlImage = data.Book.UrlImage;
                 bookToCreate.Quantity = data.Book.Quantity;
                 bookToCreate.NumberOfLikes = data.Book.NumberOfLikes;
-
+                
+                db.Books.Add(bookToCreate); 
+                db.SaveChanges();
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

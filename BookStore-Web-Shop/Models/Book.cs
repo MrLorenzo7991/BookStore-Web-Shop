@@ -26,10 +26,10 @@ namespace BookStore_Web_Shop.Models
         public double Price { get; set; }
        
         [Required]
-        [MoreThan0Validation]
-        public int Quantity { get; set; } = 0;
-        [MoreThan0Validation]
-        public int NumberOfLikes { get; set; } = 0;
+      
+        public int Quantity { get; set; }
+      
+        public int NumberOfLikes { get; set; } 
 
         public Book()
         {
@@ -42,14 +42,16 @@ namespace BookStore_Web_Shop.Models
             Description = description;
             Price = price;
             NumberOfLikes = numberOfLikes;
+            Quantity = 0;
+            NumberOfLikes = 0;
         }
         //1-n category
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         //1-n Order
-        public List<OrderLog> OrderLogs { get; set; }
+        public List<OrderLog>? OrderLogs { get; set; }
         //1-n Sell
-        public List<SellLog> SellLogs { get; set; }
+        public List<SellLog>? SellLogs { get; set; }
     }
 
 }
