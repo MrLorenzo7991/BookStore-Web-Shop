@@ -172,5 +172,56 @@ namespace BookStore_Web_Shop.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public IActionResult OrderBook(int id)
+        {
+            OrderLog order = new();
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                Book book = db.Books.Where(book => book.Id == id).FirstOrDefault();
+                order.Book = book;
+            }
+            return View(order);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult OrderBook(OrderLog data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Book bookToIncrementQuantity;
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                data.Book = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
+            }
+
+            if (data.Book != null)
+            {
+                using (BookStoreContext db = new BookStoreContext())
+                {
+                    bookToIncrementQuantity = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
+                    bookToIncrementQuantity.Quantity += data.Quantity;
+                    data.Date = DateTime.Now;
+                    OrderLog orderLog = new(data.Date, data.Quantity, data.Supplier);
+                    orderLog.BookId = data.BookId;
+                    db.OrderLog.Add(orderLog);
+                    db.SaveChanges();
+                }
+
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            
+        }
     }
 }
