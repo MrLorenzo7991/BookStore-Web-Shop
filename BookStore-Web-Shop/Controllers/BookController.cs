@@ -95,7 +95,7 @@ namespace BookStore_Web_Shop.Controllers
                     db.Books.Remove(bookToRemove);
                     db.SaveChanges();
 
-                    return RedirectToAction("ViewAdmin", "Book");
+                    return RedirectToAction("Index", "Book");
                 }
                 else
                 {
