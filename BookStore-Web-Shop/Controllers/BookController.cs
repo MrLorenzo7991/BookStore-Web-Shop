@@ -1,6 +1,7 @@
 ﻿using BookStore_Web_Shop.Data;
 using BookStore_Web_Shop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore_Web_Shop.Controllers
 {
@@ -25,9 +26,8 @@ namespace BookStore_Web_Shop.Controllers
         {
             using(BookStoreContext db = new BookStoreContext())
             {
-                Book book = db.Books.Find(id);
-
-                if(book != null)
+                Book? book = db.Books.Where(book => book.Id == id).Include(book => book.Category).FirstOrDefault();
+                if (book != null)
                 {
                     return View(book);
                 }

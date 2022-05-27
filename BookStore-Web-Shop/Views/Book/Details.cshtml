@@ -1,5 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Book
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Informazioni</h1>
+            <p>
+                <img src="@Model.UrlImage" alt="@Model.Title" width="500"/>
+            </p>
+            <p>
+                @Model.Title
+            </p>
+            <p>
+                @Model.Description
+            </p>
+            <p>
+                @Model.Price &euro;
+            </p>
+            <p>
+                Categoria: @Model.Category.Name
+            </p>
+            <p>
+                @Model.NumberOfLikes
+            </p>
+            <p>
+                @Model.Quantity
+            </p>
+        </div>
+    </div>
+</div>
