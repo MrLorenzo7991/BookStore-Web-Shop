@@ -8,7 +8,7 @@ namespace BookStore_Web_Shop.Controllers
     public class BookController : Controller
     {
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
             using(BookStoreContext db = new BookStoreContext())
             {
