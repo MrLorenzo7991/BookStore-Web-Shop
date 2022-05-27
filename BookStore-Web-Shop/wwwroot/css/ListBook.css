@@ -10,7 +10,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(./imgs/trinity-college-library.jpg);
+    background: url(~/imgs/trinity-college-library.jpg);
 }
 
 section {
