@@ -156,7 +156,7 @@ namespace BookStore_Web_Shop.Controllers
                     bookToEdit.Description = model.Book.Description;
                     bookToEdit.Price = model.Book.Price;
                     bookToEdit.CategoryId = model.Book.CategoryId;
-                    bookToEdit.UrlImage = model.Book.Title;
+                    bookToEdit.UrlImage = model.Book.UrlImage;
                     bookToEdit.Quantity = model.Book.Quantity;
                     bookToEdit.NumberOfLikes = model.Book.NumberOfLikes;
 
