@@ -12,7 +12,8 @@ namespace BookStore_Web_Shop.Models
         [Required]
         [MaxLength(70, ErrorMessage = "Il titolo può essere massimo 70 caratteri")]
         public string Title { get; set; }
-        
+        [Required]
+        public string Author { get; set; }
         [Required]
         [Url]
         public string UrlImage { get; set; }
@@ -35,9 +36,10 @@ namespace BookStore_Web_Shop.Models
         {
         }
 
-        public Book(string title, string urlImage, string description, double price, int numberOfLikes)
+        public Book(string title, string author ,string urlImage, string description, double price, int numberOfLikes)
         {
             Title = title;
+            Author = author;
             UrlImage = urlImage;
             Description = description;
             Price = price;

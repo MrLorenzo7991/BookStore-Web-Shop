@@ -79,6 +79,7 @@ namespace BookStore_Web_Shop.Controllers
                 bookToCreate.UrlImage = data.Book.UrlImage;
                 bookToCreate.Quantity = data.Book.Quantity;
                 bookToCreate.NumberOfLikes = data.Book.NumberOfLikes;
+                bookToCreate.Author = data.Book.Author;
                 
                 db.Books.Add(bookToCreate); 
                 db.SaveChanges();
@@ -159,6 +160,7 @@ namespace BookStore_Web_Shop.Controllers
                     bookToEdit.UrlImage = model.Book.UrlImage;
                     bookToEdit.Quantity = model.Book.Quantity;
                     bookToEdit.NumberOfLikes = model.Book.NumberOfLikes;
+                    bookToEdit.Author = model.Book.Author;
 
                     db.SaveChanges();
 

@@ -12,10 +12,15 @@
             <h3 class="text-center">@Model.Book.Title</h3>
             <form asp-action="Update" asp-controller="Book" method="post" class="row">
                 @Html.AntiForgeryToken()
-                <div class="col-12 my-2">
+                <div class="col-md-6 col-12 my-2">
                     <span>Titolo libro:</span>
                     <input type="text" class="form-control" asp-for="Book.Title"/>
                     <span asp-validation-for="Book.Title" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 col-12 my-2">
+                    <span>Autore:</span>
+                    <input type="text" class="form-control" asp-for="Book.Author"/>
+                    <span asp-validation-for="Book.Author" class="text-danger"></span>
                 </div>
                 <div class="col-12 my-2">
                     <span>Url immagine:</span>
