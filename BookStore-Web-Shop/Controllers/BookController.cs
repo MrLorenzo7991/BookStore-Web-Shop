@@ -138,7 +138,7 @@ namespace BookStore_Web_Shop.Controllers
                 {
                     model.Categories = db.Categories.ToList();
                 }
-                return View("Update",model);
+                return View("Edit",model);
             }
 
             Book? bookToEdit = new();
