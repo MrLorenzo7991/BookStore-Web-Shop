@@ -9,15 +9,18 @@ namespace BookStore_Web_Shop.Models
         public string Id { get; set; } 
         public DateTime Date { get; set; }
         [MoreThan0Validation]
-        public int Quantity { get; set; }   
+        public int Quantity { get; set; }
+        [Required]
+        public string Customer { get; set; }
         
         public SellLog()
         {
         }
-        public SellLog(DateTime date, int quantity)
+        public SellLog(DateTime date, int quantity, string customer)
         {
             Date = date;
             Quantity = quantity;
+            Customer = Customer;
         }
 
         public int BookId { get; set; }
