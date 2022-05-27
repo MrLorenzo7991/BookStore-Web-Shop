@@ -14,9 +14,9 @@ namespace BookStore_Web_Shop.Controllers
                 List<Book> books = db.Books.ToList();
                 List<Category> categories = db.Categories.ToList();
 
-                BooksCategories booksCategories = new(books,categories);
+                //BooksCategories booksCategories = new(books,categories);
 
-                return View("ViewAdmin",booksCategories);
+                return View("ViewAdmin",books);
             }
         }
         
@@ -76,6 +76,9 @@ namespace BookStore_Web_Shop.Controllers
                 bookToCreate.Description = data.Book.Description;
                 bookToCreate.CategoryId = data.Book.CategoryId;
                 bookToCreate.UrlImage = data.Book.UrlImage;
+                bookToCreate.Quantity = data.Book.Quantity;
+                bookToCreate.NumberOfLikes = data.Book.NumberOfLikes;
+
             }
 
             return View();
@@ -92,7 +95,71 @@ namespace BookStore_Web_Shop.Controllers
                     db.Books.Remove(bookToRemove);
                     db.SaveChanges();
 
-                    return RedirectToAction("Index", "Book");
+                    return RedirectToAction("ViewAdmin", "Book");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            Book? bookToEdit = new();
+            List<Category> categories = new List<Category>();
+
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                categories = db.Categories.ToList();
+                bookToEdit = db.Books.Where(book => book.Id == id).FirstOrDefault();
+            }
+
+            if(bookToEdit != null)
+            {
+                BookCategories bookCategoriesToEdit = new();
+                bookCategoriesToEdit.Categories = categories;
+                bookCategoriesToEdit.Book = bookToEdit;
+                return View("Edit", bookCategoriesToEdit);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(int id,BookCategories model)
+        {
+            if(!ModelState.IsValid)
+            {
+                using(BookStoreContext db = new BookStoreContext())
+                {
+                    model.Categories = db.Categories.ToList();
+                }
+                return View("Update",model);
+            }
+
+            Book? bookToEdit = new();
+
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                bookToEdit = db.Books.Where(book => book.Id==id).FirstOrDefault();
+
+                if(bookToEdit != null)
+                {
+                    bookToEdit.Title = model.Book.Title;
+                    bookToEdit.Description = model.Book.Description;
+                    bookToEdit.Price = model.Book.Price;
+                    bookToEdit.CategoryId = model.Book.CategoryId;
+                    bookToEdit.UrlImage = model.Book.Title;
+                    bookToEdit.Quantity = model.Book.Quantity;
+                    bookToEdit.NumberOfLikes = model.Book.NumberOfLikes;
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
                 }
                 else
                 {
