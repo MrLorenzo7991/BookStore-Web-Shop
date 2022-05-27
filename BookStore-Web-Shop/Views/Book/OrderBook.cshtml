@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col shadow-lg rounded">
-            <form asp-action="Order" asp-controller="Book" method="post" class="row">
+            <form asp-action="OrderBook" asp-controller="Book" method="post" class="row">
                 @Html.AntiForgeryToken()
                 <div class="col-md-6 col-12 my-2">
                     <span>Fornitore:</span>
@@ -25,6 +25,7 @@
                 <div class="text-end my-2">
                     <input type="submit" class="btn btn-small btn-success" value="Order">
                 </div>
+                <input type="number" asp-for="BookId" hidden value="@Model.Book.Id"/>
             </form>
         </div>
     </div>

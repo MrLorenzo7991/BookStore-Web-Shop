@@ -8,7 +8,6 @@ namespace BookStore_Web_Shop.Models
         [Key]
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        [MoreThan0Validation]
         [Required]
         public int Quantity { get; set; }
         [Required]
@@ -25,6 +24,6 @@ namespace BookStore_Web_Shop.Models
         }
 
         public int BookId { get; set; }
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
     }
 }

@@ -43,10 +43,10 @@
                                 <td>@book.Price</td>
                                 <td>@book.Quantity</td>
                                 <td>
-                                    <a href="@Url.Action("Details",new{id=book.Id})" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
-                                    <a href="#" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
-                                    <a href="@Url.Action("Update",new{id=book.Id})" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
-                                    <form action="@Url.Action("Delete", new{id=book.Id})" method="post">
+                                    <a href="@Url.Action("Details" , new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
+                                    <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
+                                    <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
+                                    <form action="@Url.Action("Delete", new{ id = book.Id } )" method="post">
                                         @Html.AntiForgeryToken()
                                         <button class="btn btn-danger btn-lg d-block my-1 w-100" role="button">
                                             <i class="fa-solid fa-ban"></i>
