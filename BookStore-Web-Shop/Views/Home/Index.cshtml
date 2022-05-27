@@ -1,19 +1,33 @@
-﻿
-
-  @section CssFile{
+﻿@section CssFile{
          <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
              <link rel="stylesheet" href="./css/ListBook.css">
-  }
+}
   
   
   
   <div class="container">
   <section>
        <div class="swiper mySwiper container">
-        <div class="swiper-wrapper content">
+        <div class="swiper-wrapper content"></div>
+      </div>
   
   
-       <script type="text/javascript">
+      <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </section>
+    </div>
+
+  
+
+
+
+
+
+    @section Scripts{
+            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+            <script src="./js/ListBooks.js"></script>
+            <script type="text/javascript">
 
         BookCard();
 
@@ -55,27 +69,5 @@
         }
     
     </script>
-
-
-
-        </div>
-      </div>
-  
-  
-      <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-    </section>
-    </div>
-
-  
-
-
-
-
-
-    @section script{
-            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-            <script src="./js/ListBooks.js"></script>
     }
   

@@ -20,7 +20,7 @@ namespace BookStore_Web_Shop.Controllers.Api
                 }
                 else
                 {
-                    books = db.Books.Where(book => book.Title.Contains(searchString)).ToList();
+                    books = db.Books.Where(book => book.Title.Contains(searchString)).Include(book => book.Category).ToList();
                 }
                 return Ok(books);
             }
