@@ -22,7 +22,12 @@ namespace BookStore_Web_Shop.Controllers.Api
                 {
                     books = db.Books.Where(book => book.Title.Contains(searchString)).Include(book => book.Category).ToList();
                 }
-                return Ok(books);
+                List<Book> books2 = new List<Book>();
+                for (int i = 0; i < 30; i++)
+                {
+                    books2.Add(books[i]);
+                }
+                return Ok(books2);
             }
         }
     }

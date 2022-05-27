@@ -1,6 +1,7 @@
 ﻿using BookStore_Web_Shop.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookStore_Web_Shop.Models
 {
@@ -51,8 +52,10 @@ namespace BookStore_Web_Shop.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         //1-n Order
+        [JsonIgnore]
         public List<OrderLog>? OrderLogs { get; set; }
         //1-n Sell
+        [JsonIgnore]
         public List<SellLog>? SellLogs { get; set; }
     }
 

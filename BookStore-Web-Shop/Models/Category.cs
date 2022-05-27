@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BookStore_Web_Shop.Models
 {
@@ -18,6 +19,7 @@ namespace BookStore_Web_Shop.Models
         {
             Name = name;
         }
+        [JsonIgnore]
         public List <Book> books { get; set; }
     }
 }

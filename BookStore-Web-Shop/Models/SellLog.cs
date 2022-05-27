@@ -22,7 +22,7 @@ namespace BookStore_Web_Shop.Models
             Quantity = quantity;
             Customer = Customer;
         }
-
+        
         public int BookId { get; set; }
         public Book Book { get; set; }
     }
