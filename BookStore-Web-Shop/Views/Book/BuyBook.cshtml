@@ -1,1 +1,31 @@
-﻿
+﻿@model SellLog
+
+<div class = "container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Il libro è quasi tuo!</h1>
+            <p>Ci serve solo qualche piccola informazione prima di acquistare: </p>
+            <p><strong>@Model.Book.Title</strong> - <em>@Model.Book.Author</em></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col shadow-lg rounded">
+            <form asp-action="Order" asp-controller="Book" method="post" class="row">
+                @Html.AntiForgeryToken()
+                <div class="col-md-6 col-12 my-2">
+                    <span>Come ti chiami?:</span>
+                    <input type="text" class="form-control" asp-for="Customer"/>
+                    <span asp-validation-for="Customer" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 col-12 my-2">
+                    <span>Quante copie vuoi acquistare?</span>
+                    <input type="number" class="form-control" asp-for="Quantity" min="0"/>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="text-end my-2">
+                    <input type="submit" class="btn btn-small btn-success" value="Acquista">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
