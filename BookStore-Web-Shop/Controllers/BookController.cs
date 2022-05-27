@@ -50,7 +50,7 @@ namespace BookStore_Web_Shop.Controllers
 
                 BookCategories model = new(book, categories);
 
-                return View(model);
+                return View("AddBook",model);
             }
         }
 
@@ -64,7 +64,7 @@ namespace BookStore_Web_Shop.Controllers
                     data.Book = new Book();
                     data.Categories = data.Categories.ToList();
 
-                    return View("Create",data);
+                    return View("AddBook",data);
                 }
             }
 
