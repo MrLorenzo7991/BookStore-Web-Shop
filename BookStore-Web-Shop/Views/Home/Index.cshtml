@@ -1,11 +1,52 @@
-﻿@section CssFile{
+﻿@model List<Book>
 
-}
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 
-@section Scripts{
-
-}
+  @section CssFile{
+         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+             <link rel="stylesheet" href="./css/ListBook.css">
+  }
+  
+  
+  
+  <div class="container">
+  <section>
+       <div class="swiper mySwiper container">
+        <div class="swiper-wrapper content">
+  
+  
+       @if (Model.Count()==0){
+           <h3>"Non ci sono libri presenti</h3>
+       }else{
+           @foreach (Book books in Model){
+     
+           <div class="swiper-slide card">
+            <div class="card-content">
+              <div class="image">
+                <img src="@books.UrlImage" alt="">
+              </div>
+              <div style="padding-top:10px">
+                <span >@books.Title</span>
+              </div>
+              <div class="rating">
+                <i class="fa-solid fa-heart"></i>
+              </div>
+            </div>
+          </div>
+           }
+  
+       }
+  
+        </div>
+      </div>
+  
+  
+      <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </section>
+    </div>
+    @section script{
+            <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+            <script src="./js/ListBook.js"></script>
+    }
+  
