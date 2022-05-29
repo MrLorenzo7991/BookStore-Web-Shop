@@ -1,14 +1,12 @@
 ﻿
 <div class="container">
-   <section>
       <div class="swiper mySwiper container">
-         <div class="swiper-wrapper content">
+         <div class="swiper-wrapper content row">
          </div>
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-pagination"></div>
-   </section>
 </div>
 
 @section Scripts{
@@ -31,6 +29,7 @@
                     console.log("Ho preso i libri")
                     document.querySelector('.content').innerHTML += 
                     `   
+                    <div class="col-md-4">
                     <div class="swiper-slide card">          
                         <div class="card-content">
                             <div class="image">
@@ -43,6 +42,7 @@
                             <i class="fa-solid fa-heart"></i>
                             </div>
                         </div>
+                    </div>
                     </div>
                     `
                 });
