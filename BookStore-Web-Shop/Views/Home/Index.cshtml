@@ -1,11 +1,11 @@
-﻿
+﻿@
 <div class="container">
       <div class="swiper mySwiper container">
          <div class="swiper-wrapper content row">
          </div>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next" style=" opacity: 0.7;color: #fff;transition: all 0.3s ease;"></div>
+      <div class="swiper-button-prev" style=" opacity: 0.7;color: #fff;transition: all 0.3s ease;"></div>
       <div class="swiper-pagination"></div>
 </div>
 
@@ -32,8 +32,9 @@
                     <div class="col-md-4">
                         <div class="swiper-slide card text-center" style=" width: 15rem">          
                             <img class="card-img-top" src="${book.urlImage}" alt="" style="height:380px ; width:250px;" width="200">
-                             <i class="fa-solid fa-heart" style="color: black; z-index:1;position:absolute;bottom:15px;left:129px;"></i>
-                            
+                            <button onclick="location.href='@Url.Action("AddFavouriteBook", "FavouritesController")'" />
+                            <i class="fa-solid fa-heart" style="color: black; z-index:1;position:absolute;bottom:15px;left:129px;"></i>
+                            </button>
                         </div>
                      </div>
                    
