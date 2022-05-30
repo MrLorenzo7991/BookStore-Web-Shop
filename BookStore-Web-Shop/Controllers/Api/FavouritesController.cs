@@ -22,7 +22,6 @@ namespace BookStore_Web_Shop.Controllers.Api
                     db.SaveChanges();
                 }
                 return Ok();
-
             }
             else
             {
