@@ -8,16 +8,24 @@ namespace BookStore_Web_Shop.Controllers
     public class BookController : Controller
     {
         [HttpGet]
-        public IActionResult Index(string? search)
+        public IActionResult Index(string search)
         {
             using(BookStoreContext db = new BookStoreContext())
             {
-                List<Book> books = db.Books.ToList();
-                List<Category> categories = db.Categories.ToList();
+                if (String.IsNullOrEmpty(search))
+                {
+                    List<Book> books = db.Books.Include(book => book.Category).ToList();
 
-                //BooksCategories booksCategories = new(books,categories);
+                    return View("ViewAdmin", books);
+                }
+                else
+                {
+                    List<Book> books = db.Books.Where(book => book.Author.Contains(search) || 
+                                                      book.Title.Contains(search)).ToList();
+                    List<Category> categories = db.Categories.ToList();
 
-                return View("ViewAdmin",books);
+                    return View("ViewAdmin", books);
+                }
             }
         }
         
