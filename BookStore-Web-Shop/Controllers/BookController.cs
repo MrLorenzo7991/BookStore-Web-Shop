@@ -21,8 +21,7 @@ namespace BookStore_Web_Shop.Controllers
                 else
                 {
                     List<Book> books = db.Books.Where(book => book.Author.Contains(search) || 
-                                                      book.Title.Contains(search)).ToList();
-                    List<Category> categories = db.Categories.ToList();
+                                                      book.Title.Contains(search)).Include(book => book.Category).ToList();
 
                     return View("ViewAdmin", books);
                 }

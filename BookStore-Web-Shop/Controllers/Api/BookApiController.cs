@@ -21,7 +21,9 @@ namespace BookStore_Web_Shop.Controllers.Api
                 }
                 else
                 {
-                    books = db.Books.Where(book => book.Title.Contains(searchString)).Include(book => book.Category).ToList();
+                    books = db.Books.Where(book => book.Title.Contains(searchString) ||
+                                           book.Author.Contains(searchString)
+                                           ).Include(book => book.Category).ToList();
                 }
              
                 
