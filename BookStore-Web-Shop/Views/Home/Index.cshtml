@@ -1,21 +1,36 @@
 ﻿
 <div class="container">
       <div class="swiper mySwiper container">
-         <div class="swiper-wrapper content row">
-         </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" placeholder="Cerca..." id="search"/>
+            </div>
+        </div>
+        <div class="swiper-wrapper content row">
+        </div>
       </div>
       <div class="swiper-button-next" style=" opacity: 0.7;color: #fff;transition: all 0.3s ease;"></div>
       <div class="swiper-button-prev" style=" opacity: 0.7;color: #fff;transition: all 0.3s ease;"></div>
       <div class="swiper-pagination"></div>
 </div>
 
+
 @section Scripts{
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="~/js/ListBook.js"></script>
 <script type="text/javascript">
-   BookCard();
-   function BookCard(){
-    axios.get('/api/bookapi/get').then((result) => 
+
+   search();
+   document.getElementById('search').addEventListener('keyup', search);
+   function search(){
+       let searchString = document.getElementById("search").value
+       BookCard(searchString);
+   }
+
+   
+   function BookCard(searchString){
+    document.querySelector('.content').innerHTML = '';
+    axios.get('/api/bookapi/get', {params:{searchString : searchString}}).then((result) => 
     {  
         if(result.data.lenght == 0)
         {
