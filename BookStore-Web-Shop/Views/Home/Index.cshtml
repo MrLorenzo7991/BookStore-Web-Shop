@@ -30,19 +30,19 @@
                     document.querySelector('.content').innerHTML += 
                     `   
                     <div class="col-md-4">
-                    <div class="swiper-slide card">          
-                        <div class="card-content">
-                            <div class="image">
-                                <img src="${book.urlImage}" alt="" width="200">
-                            </div>
-                            <div style="padding-top:10px">
-                            <span >${book.title}</span>
-                            </div>
-                            <div class="rating">
-                            <i class="fa-solid fa-heart"></i>
+                        <div class="swiper-slide card">          
+                            <div class="card-content">
+                                <div class="image">
+                                    <img src="${book.urlImage}" alt="${book.title}" width="200">
+                                </div>
+                                <div style="padding-top:10px">
+                                <span >${book.title}</span>
+                                </div>
+                                <div class="rating">
+                                <i class="fa-solid fa-heart"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                     `
                 });
