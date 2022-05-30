@@ -12,3 +12,11 @@ html {
   position: relative;
   min-height: 100%;
 }
+.site:hover {
+    transform: scale(1);
+}
+
+#like:hover {
+    color: red;
+    background-color: antiquewhite;
+}
