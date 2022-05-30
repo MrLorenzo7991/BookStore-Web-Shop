@@ -7,7 +7,7 @@ namespace BookStore_Web_Shop.Controllers.Api
 {
     [Route("Api/[controller]/[action]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class BookApiController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get(string? searchString)

@@ -9,12 +9,12 @@ namespace BookStore_Web_Shop.Controllers.Api
     public class FavouritesController : ControllerBase
     {
         [HttpPost]
-        public IActionResult AddFavouriteBook ([FromBody] Favourites BookId)
+        public IActionResult AddFavouriteBook ([FromBody] int id)
         {
             Book bookfind = new Book();
             using (BookStoreContext db = new BookStoreContext())
             {
-                bookfind = db.Books.Find(BookId.BookId);
+                bookfind = db.Books.Find(id);
                 bookfind.NumberOfLikes++;
             }
             return Ok();
