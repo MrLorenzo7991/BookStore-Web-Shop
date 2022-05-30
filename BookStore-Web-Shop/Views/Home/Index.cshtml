@@ -17,7 +17,6 @@
    function BookCard(){
     axios.get('/api/bookapi/get').then((result) => 
     {  
-        console.log("Siamo QUIIII" , result)
         if(result.data.lenght == 0)
         {
             console.log("Non ci sono libri")
@@ -26,7 +25,6 @@
         {
             result.data.forEach(book => 
                 {
-                    console.log("Ho preso i libri")
                     document.querySelector('.content').innerHTML += 
                     `   
                     <div class="col">
@@ -34,11 +32,9 @@
                             <img onclick="dettagli(${book.id})" class="card-img-top" src="${book.urlImage}" alt="" width="200">
                             <div class="card-body">
                             <div class="rating">
-                            <form class="d-inline">
-                                <button type="submit" onclick="send(${book.id})">
+                                <button type="button" onclick="send(${book.id})">
                                     <i class="fa-solid fa-heart"></i>
                                 </button>
-                            <form>
                             </div>
                         </div>
                     </div>
@@ -56,7 +52,16 @@
         window.open("Home/Details/" + id,"_self")
     }
     function send(Id){
-        axios.post('Api/Favourites/AddFavouriteBook', {id : Id});
+        console.log("Sono nella funzione send");
+        debugger;
+        axios.post('/Api/Favourites/AddFavouriteBook', 
+        {
+            bookId : Id
+        }).then(function (response){
+            console.log(response);
+        }).catch(function (error){
+            console.log(error);
+        });
     }
 </script>
 }

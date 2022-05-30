@@ -4,6 +4,6 @@ namespace BookStore_Web_Shop.Data
 {
     public static class FavouritesBooks
     {
-        public static List<Book> favouritesBookList = new List<Book>();
+        public static List<int> favouritesBookList = new List<int>();
     }
 }
