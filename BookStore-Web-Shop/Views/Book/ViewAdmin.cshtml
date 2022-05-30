@@ -11,6 +11,13 @@
         <div class="col-3 mx-auto">
             <a class="btn btn-outline-primary" href="@Url.Action("Create", "Book")" role="button">Aggiunngi un nuovo libro</a>
         </div>
+        <div>
+            <form class="text-end" asp-action="Index" asp-controller="Book" method="get">
+                @Html.AntiForgeryToken()
+                <input type="text" placeholder="Cerca..." name="search" />
+                <input  type="submit" value="Cerca" />
+            </form>
+        </div>
     </div>
     <div class="row">
         <div class=col-12>
