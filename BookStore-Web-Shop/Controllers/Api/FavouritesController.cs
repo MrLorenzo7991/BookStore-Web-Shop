@@ -9,15 +9,25 @@ namespace BookStore_Web_Shop.Controllers.Api
     public class FavouritesController : ControllerBase
     {
         [HttpPost]
-        public IActionResult AddFavouriteBook ([FromBody] int id)
+        public IActionResult AddFavouriteBook (Favourites data)
         {
-            Book bookfind = new Book();
-            using (BookStoreContext db = new BookStoreContext())
+            if (ModelState.IsValid)
             {
-                bookfind = db.Books.Find(id);
-                bookfind.NumberOfLikes++;
+                Book? bookfind = new Book();
+                using (BookStoreContext db = new BookStoreContext())
+                {
+                    bookfind = db.Books.Find(data.BookId);
+                    if (bookfind != null)
+                        bookfind.NumberOfLikes++;
+                    db.SaveChanges();
+                }
+                return Ok();
+
             }
-            return Ok();
+            else
+            {
+                return BadRequest("Model not correct");
+            }
         }
     }
 }
