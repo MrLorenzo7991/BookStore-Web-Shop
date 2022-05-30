@@ -30,18 +30,13 @@
                     document.querySelector('.content').innerHTML += 
                     `   
                     <div class="col-md-4">
-                    <div class="swiper-slide card text-center" style=" width: 18rem">          
-                            <img class="card-img-top" src="${book.urlImage}" alt="" width="200">
-                            <div class="card-body">
-                            <div style="padding-top:10px">
-                                <span >${book.title}</span>
-                            </div>
-                            <div class="rating">
-                            <i class="fa-solid fa-heart"></i>
-                            </div>
+                        <div class="swiper-slide card text-center" style=" width: 15rem">          
+                            <img class="card-img-top" src="${book.urlImage}" alt="" style="height:380px ; width:250px;" width="200">
+                             <i class="fa-solid fa-heart" style="color: black; z-index:1;position:absolute;bottom:15px;left:129px;"></i>
+                            
                         </div>
-                    </div>
-                    </div>
+                     </div>
+                   
                     `
                 });
         }
