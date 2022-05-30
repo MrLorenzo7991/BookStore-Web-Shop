@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col" id="titolo">TITOLO DI PROVA DA CANCELLARE</div>
+    </div>
+    <div class="row">
+        <div class="col" id="categoria"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12" id="immagine"></div>
+        <div class="col-md-9 col-12" id="descrizione"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-12" id="like"></div>
+        <div class="col-md-9 col-12" id="copie-rimanenti"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        console.log(id);
+        console.log("Ciaoooooooo");
+        axios.get('/Api/Book/Details/',{params: {id : id}}).then((result) =>{
+            console.log("sto in axios");
+            console.log(result);
+            document.getElementById("titolo").innerHTML = result.data.title;
+            document.getElementById("categoria").innerHTML = result.data.category.name;
+            document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
+            document.getElementById("descrizione").innerHTML = result.data.description;
+            document.getElementById("like").innerHTML = result.data.numberOfLikes;
+            document.getElementById("copie-rimanenti").innerHTML = result.data.quantity;
+        });
+    </script> 
+}

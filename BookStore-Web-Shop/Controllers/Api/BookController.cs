@@ -9,6 +9,7 @@ namespace BookStore_Web_Shop.Controllers.Api
     [ApiController]
     public class BookController : ControllerBase
     {
+        [HttpGet]
         public IActionResult Get(string? searchString)
         {
             List<Book> books = new List<Book>();
@@ -26,6 +27,20 @@ namespace BookStore_Web_Shop.Controllers.Api
                 
                 return Ok(books);
             }
+        }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Book book = null;
+            using (BookStoreContext db = new BookStoreContext())
+            {
+                book = db.Books.Where(book => book.Id == id).Include(book => book.Category).FirstOrDefault();
+            }
+            if(book == null)
+            {
+                return NotFound();
+            }
+            return Ok(book);
         }
     }
 }

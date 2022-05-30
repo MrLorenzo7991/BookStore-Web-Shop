@@ -191,7 +191,7 @@ namespace BookStore_Web_Shop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest();//forse deve ritornare i valori
             }
 
             Book bookToIncrementQuantity;
@@ -207,7 +207,7 @@ namespace BookStore_Web_Shop.Controllers
                     bookToIncrementQuantity = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
                     bookToIncrementQuantity.Quantity += data.Quantity;
                     data.Date = DateTime.Now;
-                    OrderLog orderLog = new(data.Date, data.Quantity, data.Supplier);
+                    OrderLog orderLog = new(data.Date, data.Quantity, data.Supplier, data.Price);
                     orderLog.BookId = data.BookId;
                     db.OrderLog.Add(orderLog);
                     db.SaveChanges();
