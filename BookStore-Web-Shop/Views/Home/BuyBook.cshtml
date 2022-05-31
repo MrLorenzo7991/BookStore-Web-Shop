@@ -3,6 +3,7 @@
         <div class="col-12 text-center">
             <h1>Il libro è quasi tuo!</h1>
             <p>Ci serve solo qualche piccola informazione prima di acquistare: </p>
+            <span id="immagine"></span>
             <p><strong id="titolo"></strong> - <em><span id="autore"></span></em></p>
         </div>
     </div>
@@ -35,7 +36,7 @@
         var id = parseInt(url.substring(url.lastIndexOf('/') + 1));
         axios.get('/Api/BookApi/Details/',{params: {id : id}}).then((result) =>{
             document.getElementById("titolo").innerHTML = result.data.title;
-            document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
+            document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-25" alt="${result.data.title}"/>`
             document.getElementById("autore").innerHTML = result.data.author;
         });
 
