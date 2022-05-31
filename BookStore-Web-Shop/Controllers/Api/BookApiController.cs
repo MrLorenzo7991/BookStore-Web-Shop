@@ -61,7 +61,9 @@ namespace BookStore_Web_Shop.Controllers.Api
             {
                 using (BookStoreContext db = new BookStoreContext())
                 {
+                   
                     bookToSell.Quantity -= data.Quantity;
+                   
                     SellLog sellLog = new(DateTime.Now, data.Quantity, data.Customer, data.Quantity*bookToSell.Price);
                     sellLog.BookId = data.BookId;
                     db.SellLog.Add(sellLog);

@@ -1,26 +1,27 @@
-﻿<div class = "container">
+﻿<div class = "container shadow-lg rounded">
     <div class="row">
         <div class="col-12 text-center">
             <h1>Il libro è quasi tuo!</h1>
-            <p>Ci serve solo qualche piccola informazione prima di acquistare: </p>
             <span id="immagine"></span>
             <p><strong id="titolo"></strong> - <em><span id="autore"></span></em></p>
+            <p>Ci serve solo qualche piccola informazione prima di acquistare: </p>
         </div>
     </div>
     <div class="row">
-        <div class="col shadow-lg rounded">
+        <div class="col">
             <form method="post" class="row" onsubmit="preventDefault()">
                 <div class="col-md-6 col-12 my-2">
-                    <span>Come ti chiami?:</span>
+                    <span>Come ti chiami?</span>
                     <input type="text" class="form-control" id="nome"/>
                 </div>
                 <div class="col-md-6 col-12 my-2">
                     <span>Quante copie vuoi acquistare?</span>
                     <input type="number" class="form-control" min="0" id="quantita"/>
+                    <div id="outOfStockMessage"></div>
                 </div>
                 <div class="col-md-6 col-12 my-2">
-                    <span>Prezzo totale:</span>
-                    <input type="text" class="form-control" disabled id="totale"/>
+                    <span>Prezzo totale: </span>
+                    <span id="prezzoTotale"></span>
                 </div>
                 <div class="text-end my-2">
                     <input class="btn btn-small btn-success" value="Acquista" onclick="send()">
@@ -34,13 +35,28 @@
     <script>
         var url = window.location.pathname;
         var id = parseInt(url.substring(url.lastIndexOf('/') + 1));
+        var quantiy = 0;
+        var price = 0;
         axios.get('/Api/BookApi/Details/',{params: {id : id}}).then((result) =>{
             document.getElementById("titolo").innerHTML = result.data.title;
             document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-25" alt="${result.data.title}"/>`
             document.getElementById("autore").innerHTML = result.data.author;
+            quantity = result.data.quantity;
+            price = result.data.price;
         });
 
-        
+        document.getElementById('quantita').addEventListener('click', Stockcheck);
+        document.getElementById('quantita').addEventListener('keyup', Stockcheck);
+        document.getElementById('quantita').addEventListener('wheel', function(){setTimeout(Stockcheck, 100)});
+
+        function Stockcheck(){
+            document.getElementById("outOfStockMessage").innerHTML = ''
+            let numberOfCopies = document.getElementById("quantita").value;
+            if(quantity < numberOfCopies){
+                document.getElementById("outOfStockMessage").innerHTML = `<span class="text-danger">La quantità di copie specificata non è disponibile, i tempi di consegna potrebbero allungarsi</span>`
+            }
+            document.getElementById("prezzoTotale").innerHTML = `${numberOfCopies * price} €`
+        }
 
         function send(){
             var quantita = document.getElementById("quantita").value;
