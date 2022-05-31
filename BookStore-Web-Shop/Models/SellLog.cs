@@ -7,7 +7,7 @@ namespace BookStore_Web_Shop.Models
     public class SellLog
     {
         [Key]
-        public string Id { get; set; } 
+        public int Id { get; set; } 
         public DateTime? Date { get; set; }
         public int Quantity { get; set; }
         [Required]
