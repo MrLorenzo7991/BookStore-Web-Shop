@@ -42,13 +42,15 @@
                     <tbody>
                         @foreach(Book book in Model)
                         {
-                            <tr>
+                            @if(book.Quantity<=0)
+                            {
+                            <tr class="bg-danger">
                                 <td>@book.Id</td>
                                 <td><img src="@book.UrlImage" alt="Copertina libro" width="300"/></td>
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td>@book.Quantity</td>
+                                <td><p hidden>Quantity</p>@book.Quantity</td>
                                 <td>
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
@@ -60,7 +62,52 @@
                                         </button> 
                                     </form>
                                 </td>
-                            </tr>    
+                            </tr>
+                            }
+                            else if(book.Quantity<=3)
+                            {
+                            <tr class="bg-warning">
+                                <td>@book.Id</td>
+                                <td><img src="@book.UrlImage" alt="Copertina libro" width="300"/></td>
+                                <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
+                                <td>@book.Category.Name</td>
+                                <td>@book.Price</td>
+                                <td><p hidden>Quantity</p>@book.Quantity</td>
+                                <td>
+                                    <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
+                                    <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
+                                    <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
+                                    <form action="@Url.Action("Delete", new{ id = book.Id } )" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-danger btn-lg d-block my-1 w-100" role="button">
+                                            <i class="fa-solid fa-ban"></i>
+                                        </button> 
+                                    </form>
+                                </td>
+                                </tr>
+                            }
+                            else
+                            {
+                            <tr class="bg-light">
+                                <td>@book.Id</td>
+                                <td><img src="@book.UrlImage" alt="Copertina libro" width="300"/></td>
+                                <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
+                                <td>@book.Category.Name</td>
+                                <td>@book.Price</td>
+                                <td><p hidden>Quantity</p>@book.Quantity</td>
+                                <td>
+                                    <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
+                                    <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
+                                    <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
+                                    <form action="@Url.Action("Delete", new{ id = book.Id } )" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-danger btn-lg d-block my-1 w-100" role="button">
+                                            <i class="fa-solid fa-ban"></i>
+                                        </button> 
+                                    </form>
+                                </td>
+                            </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -68,3 +115,13 @@
         </div>
     </div>
 </div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        for (let i = 0; i < (@Model.Count); i++) {
+            console.log(i);
+        }
+
+    </script>
+}                                        
