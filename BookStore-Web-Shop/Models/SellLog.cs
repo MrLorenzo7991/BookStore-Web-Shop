@@ -1,5 +1,6 @@
 ﻿using BookStore_Web_Shop.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BookStore_Web_Shop.Models
 {
@@ -7,13 +8,12 @@ namespace BookStore_Web_Shop.Models
     {
         [Key]
         public string Id { get; set; } 
-        public DateTime Date { get; set; }
-        [MoreThan0Validation]
+        public DateTime? Date { get; set; }
         public int Quantity { get; set; }
         [Required]
         public string Customer { get; set; }
         [Required]
-        [MoreThan0Validation]
+        
         public double Price { get; set; }
 
         public SellLog()
@@ -26,7 +26,7 @@ namespace BookStore_Web_Shop.Models
             Customer = customer;
             Price = price;  
         }
-        
+        [JsonIgnore]
         public int BookId { get; set; }
         public Book? Book { get; set; }
     }

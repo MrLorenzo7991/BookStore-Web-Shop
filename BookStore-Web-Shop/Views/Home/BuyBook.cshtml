@@ -1,0 +1,62 @@
+﻿<div class = "container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>Il libro è quasi tuo!</h1>
+            <p>Ci serve solo qualche piccola informazione prima di acquistare: </p>
+            <p><strong id="titolo"></strong> - <em><span id="autore"></span></em></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col shadow-lg rounded">
+            <form method="post" class="row" onsubmit="preventDefault()">
+                <div class="col-md-6 col-12 my-2">
+                    <span>Come ti chiami?:</span>
+                    <input type="text" class="form-control" id="nome"/>
+                </div>
+                <div class="col-md-6 col-12 my-2">
+                    <span>Quante copie vuoi acquistare?</span>
+                    <input type="number" class="form-control" min="0" id="quantita"/>
+                </div>
+                <div class="col-md-6 col-12 my-2">
+                    <span>Prezzo totale:</span>
+                    <input type="text" class="form-control" disabled id="totale"/>
+                </div>
+                <div class="text-end my-2">
+                    <input class="btn btn-small btn-success" value="Acquista" onclick="send()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var url = window.location.pathname;
+        var id = parseInt(url.substring(url.lastIndexOf('/') + 1));
+        axios.get('/Api/BookApi/Details/',{params: {id : id}}).then((result) =>{
+            document.getElementById("titolo").innerHTML = result.data.title;
+            document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
+            document.getElementById("autore").innerHTML = result.data.author;
+        });
+
+        
+
+        function send(){
+            var quantita = document.getElementById("quantita").value;
+            var cliente = document.getElementById("nome").value;
+            var data = 
+            {
+                BookId: id,
+                Quantity: quantita,
+                Customer: cliente
+            }
+            
+            axios.post('/Api/BookApi/BuyBook', data
+            ).then(function (response){
+                console.log(response);
+            }).catch(function (error){
+                console.log(error);
+            });
+        }
+    </script>
+}

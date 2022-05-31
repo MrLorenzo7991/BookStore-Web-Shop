@@ -46,7 +46,7 @@ namespace BookStore_Web_Shop.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult BuyBook(SellLog data)
+        public IActionResult BuyBook(SellData data)
         {
             if(!ModelState.IsValid)
                 return BadRequest("Il form non è stato completato con successo.");
@@ -54,14 +54,13 @@ namespace BookStore_Web_Shop.Controllers.Api
             Book? bookToSell;
             using (BookStoreContext db = new BookStoreContext())
             {
-                data.Book = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
+                bookToSell = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
             }
 
-            if (data.Book != null)
+            if (bookToSell != null)
             {
                 using (BookStoreContext db = new BookStoreContext())
                 {
-                    bookToSell = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
                     bookToSell.Quantity -= data.Quantity;
                     SellLog sellLog = new(DateTime.Now, data.Quantity, data.Customer, data.Quantity*bookToSell.Price);
                     sellLog.BookId = data.BookId;

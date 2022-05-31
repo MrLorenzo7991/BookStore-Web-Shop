@@ -13,6 +13,9 @@
         <div class="col-md-3 col-12" id="like"></div>
         <div class="col-md-9 col-12" id="copie-rimanenti"></div>
     </div>
+    <div class="row">
+        <button type="button" class="btn btn-success" onclick="acquista()">Acquista</button>
+    </div>
 </div>
 
 @section Scripts{
@@ -29,5 +32,11 @@
             document.getElementById("like").innerHTML = result.data.numberOfLikes;
             document.getElementById("copie-rimanenti").innerHTML = result.data.quantity;
         });
+        
+        function acquista(){
+            let path = window.location.pathname.slice(0, 6);
+            console.log(path);
+            window.open(path + "BuyBook/" + id,"_self")
+        }
     </script> 
 }
