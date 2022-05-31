@@ -63,7 +63,7 @@ namespace BookStore_Web_Shop.Controllers.Api
                 {
                     bookToSell = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
                     bookToSell.Quantity -= data.Quantity;
-                    SellLog sellLog = new(DateTime.Now, data.Quantity, data.Customer, data.Price);
+                    SellLog sellLog = new(DateTime.Now, data.Quantity, data.Customer, data.Quantity*bookToSell.Price);
                     sellLog.BookId = data.BookId;
                     db.SellLog.Add(sellLog);
                     db.SaveChanges();
