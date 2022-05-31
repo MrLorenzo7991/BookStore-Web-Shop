@@ -44,5 +44,36 @@ namespace BookStore_Web_Shop.Controllers.Api
             }
             return Ok(book);
         }
+
+        [HttpPost]
+        public IActionResult BuyBook(SellLog data)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest("Il form non è stato completato con successo.");
+
+            Book? bookToSell;
+            using (BookStoreContext db = new BookStoreContext())
+            {
+                data.Book = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
+            }
+
+            if (data.Book != null)
+            {
+                using (BookStoreContext db = new BookStoreContext())
+                {
+                    bookToSell = db.Books.Where(book => book.Id == data.BookId).FirstOrDefault();
+                    bookToSell.Quantity -= data.Quantity;
+                    SellLog sellLog = new(DateTime.Now, data.Quantity, data.Customer, data.Quantity*bookToSell.Price);
+                    sellLog.BookId = data.BookId;
+                    db.SellLog.Add(sellLog);
+                    db.SaveChanges();
+                }
+                return Ok("Aqcuisto conscluso con ");
+            }
+            else
+            {
+                return BadRequest("Qualcosa è andato storto, il libro non è presente.");
+            }
+        }
     }
 }

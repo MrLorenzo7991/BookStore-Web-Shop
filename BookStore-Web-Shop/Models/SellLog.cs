@@ -28,6 +28,6 @@ namespace BookStore_Web_Shop.Models
         }
         
         public int BookId { get; set; }
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
     }
 }
