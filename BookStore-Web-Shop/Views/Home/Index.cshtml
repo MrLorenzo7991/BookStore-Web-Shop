@@ -136,6 +136,25 @@
                 console.log(error);
             });
     }
+
+
+   $(document).ready(function(){
+       let card=document.querySelectorAll('.card');
+       let like=document.querySelectorAll('.like');
+
+       card.forEach(like=>{
+       like.onclick = () => {
+       card.classList.add('.like'); 
+          
+          };
+        };
+      });
+ 
+
+
+
+
+
 </script>
 }
 
