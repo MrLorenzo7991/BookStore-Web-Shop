@@ -12,11 +12,31 @@ html {
   position: relative;
   min-height: 100%;
 }
-.card:hover {
-    transform: scale(1);
+
+
+
+
+.like:hover {
+    color: indianred;
+}
+.liked{
+    color: red;
 }
 
-#like:hover {
-    color: red;
-    background-color: antiquewhite;
+
+
+
+.card-img-top.custom {
+    width: 100%;
+    height: 20vw;
+    min-height: 400px;
+    object-fit: cover;
+}
+
+#zoom {
+    transition: transform .2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }

@@ -101,13 +101,13 @@
                 {
                     document.querySelector('.content').innerHTML += 
                     `   
-                    <div class="col-md-4 mb-3>
-                        <div class="swiper-slide card text-center h-100 mx-auto" style=" width: 18rem">
-                                <img onclick="dettagli(${book.id})" class="card-img-top" src="${book.urlImage}" alt="" width="200">
-                                <button class="btn" type="button" id="like" onclick="send(${book.id})" >
-                                    <i class="fa-solid fa-heart"></i>
-                                </button>                           
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${book.id})" class="card-img-top custom" src="${book.urlImage}" alt="" style="">
                             <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${book.id})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
                                 <h5>${book.title}</h5>
                                 <p> ${book.author}</p>
                             </div>
@@ -125,15 +125,17 @@
     function dettagli(id){
         window.open("Home/Details/" + id,"_self")
     }
+
     function send(Id){
-        axios.post('/Api/Favourites/AddFavouriteBook', 
-        {
-            bookId : Id
-        }).then(function (response){
-            console.log(response);
-        }).catch(function (error){
-            console.log(error);
-        });
+            axios.post('/Api/Favourites/AddFavouriteBook', 
+            {
+                bookId : Id
+            }).then(function (response){
+                console.log(response);
+            }).catch(function (error){
+                console.log(error);
+            });
     }
 </script>
 }
+
