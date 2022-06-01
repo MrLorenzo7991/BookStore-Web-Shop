@@ -84,7 +84,13 @@ namespace BookStore_Web_Shop.Controllers.Api
             using(BookStoreContext db = new BookStoreContext())
             {
                 List<SellLog> sellLogs = db.SellLog.Include(selllog=>selllog.Book).Include(selllog=>selllog.Book.Category).ToList();
-                return Ok(sellLogs);
+
+                var obj = db.SellLog.GroupBy(x => x.BookId)
+                    .Select(x => new { Boookid = x.Key, Sum = x.Sum(item => item.Quantity) }).ToList();
+
+                //New crea un oggetto anonimo, non capisco come fa, ma ha 2 interi come attributi,
+                //forse creando un modello del genere si potrebbe usare, per JS funziona perchè quello non fa domando ma volevo fare il calcolo qui
+                return Ok(obj);
             }
         }
     }
