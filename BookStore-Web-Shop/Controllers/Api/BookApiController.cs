@@ -83,7 +83,7 @@ namespace BookStore_Web_Shop.Controllers.Api
         {
             using(BookStoreContext db = new BookStoreContext())
             {
-                List<SellLog> sellLogs = db.SellLog.Include(selllog=>selllog.Book).ToList();
+                List<SellLog> sellLogs = db.SellLog.Include(selllog=>selllog.Book).Include(selllog=>selllog.Book.Category).ToList();
                 return Ok(sellLogs);
             }
         }
