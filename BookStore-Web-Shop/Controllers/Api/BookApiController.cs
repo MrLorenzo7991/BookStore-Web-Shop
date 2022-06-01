@@ -77,5 +77,15 @@ namespace BookStore_Web_Shop.Controllers.Api
                 return BadRequest("Qualcosa è andato storto, il libro non è presente.");
             }
         }
+
+        [HttpGet]
+        public IActionResult BestSellers()
+        {
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                List<SellLog> sellLogs = db.SellLog.Include(selllog=>selllog.Book).Include(selllog=>selllog.Book.Category).ToList();
+                return Ok(sellLogs);
+            }
+        }
     }
 }
