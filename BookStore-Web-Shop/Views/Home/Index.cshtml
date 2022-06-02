@@ -137,6 +137,7 @@
             });
     }
 
+    /*
 
    document.ready(function(){
        let card=document.querySelectorAll('.card');
@@ -149,10 +150,22 @@
           };
         });
       });
- 
+ */
 
+    bestseller();
 
+    function bestseller() {
+        axios.get('/api/bookapi/bestsellers'
+            ).then(function (response){
+                console.log(response);
 
+                //qua ci mettiamo codice che controlla quanto uno a venduto rispetto all'altro dato che l'oggetto 
+                // che arriva è corretto e contiene la somma e il bookId 
+                // se si vuole si può far passare l'intero libro ma è un po uno sbattimento nel controller
+            }).catch(function (error){
+                console.log(error);
+            });
+    }
 
 
 </script>
