@@ -15,5 +15,14 @@ namespace BookStore_Web_Shop.Data
         {
             optionsBuilder.UseSqlServer("Data Source=localhost;Database=BookStore;Integrated Security=True");
         }
+
+        //onmodelcreating override
+        /*
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Blog>()
+                .Property(b => b.Url)
+                .IsRequired();
+        }*/
     }
 }
