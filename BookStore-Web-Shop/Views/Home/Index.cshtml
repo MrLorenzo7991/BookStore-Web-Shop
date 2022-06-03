@@ -1,6 +1,9 @@
 ﻿<div class="container">
+    <div class="row text-center my-3">
+        <h3>I libri più venduti del mese!</h3>
+    </div>
     <div class="row">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
           <div class="carousel-inner carosello">
 
           </div>
@@ -16,10 +19,15 @@
     </div>
     
 
+
+
     <div class="swiper mySwiper container">
+        <div class="row text-center my-5">
+            <h3>Tutti i nostri libri!</h3>
+        </div>
         <div class="row">
             <div class="col mb-3">
-                <input type="text" placeholder="Cerca..." id="search"/>
+                <input type="text" placeholder="Cerca un libro..." id="search"/>
             </div>
         </div>
         <div class="swiper-wrapper content row">
@@ -112,6 +120,8 @@
             });
     }
 
+
+
     
     /*
    $(document).ready(function(){
@@ -126,7 +136,182 @@
         });
       });*/
     
-    axios.get('/api/bookapi/bestsellers').then((result1) => {
+    
+   
+      
+   axios.get('/api/bookapi/bestsellers').then((result) => 
+    { 
+        let size = result.data.length;
+        console.log(result)
+        if(size <= 3){
+            document.querySelector('.carosello').innerHTML = 
+            `
+            <div class="carousel-item active">
+                <div class="row first-slide"></div>
+            </div> 
+            `
+        }else if(size <= 6){
+            document.querySelector('.carosello').innerHTML = 
+            `
+                <div class="carousel-item active">
+                    <div class="row first-slide"></div>
+                </div> 
+                <div class="carousel-item">
+                    <div class="row second-slide"></div>
+                </div>
+            `
+        }else{
+            document.querySelector('.carosello').innerHTML = 
+            `
+                <div class="carousel-item active">
+                    <div class="row first-slide"></div>
+                </div> 
+                <div class="carousel-item">
+                    <div class="row second-slide"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row third-slide"></div>
+                </div>
+            `
+        }
+
+        if(size <= 3)
+        {
+            
+            result.data.forEach(book => 
+                {
+                    document.querySelector('.first-slide').innerHTML += 
+                    `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${book.bookId})" class="card-img-top custom" src="${book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${book.title}</h5>
+                                <p> ${book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                })
+        }
+        else if(size <=6)
+        {
+            
+            for(let i = 0; i < 3; i++)
+            {
+                document.querySelector('.first-slide').innerHTML += 
+                `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+
+            
+            for(let i = 3; i < size; i++)
+            {
+                document.querySelector('.second-slide').innerHTML += 
+                `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        }
+        else
+        {
+            
+            for(let i = 0; i < 3; i++)
+            {
+                document.querySelector('.first-slide').innerHTML += 
+                `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+
+            for(let i = 3; i < 6; i++)
+            {
+                document.querySelector('.second-slide').innerHTML += 
+                `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+            
+            for(let i = 6; i < size; i++)
+            {
+                document.querySelector('.third-slide').innerHTML += 
+                `   
+                    <div class="col mb-3">
+                        <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                            <div class="card-body">
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
+                                    <i class="fa-solid fa-heart fs-4 like"></i>
+                                </button>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        }
+    }).catch((error) => {
+        console.log(error)
+    });
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      /*axios.get('/api/bookapi/bestsellers').then((result1) => {
         console.log(result1)
         let size = result1.data.length;
         if(size <= 3)
@@ -271,7 +456,7 @@
                 }
             }
         }
-    })
+    })*/
 </script>
 }
 
