@@ -8,26 +8,67 @@ namespace BookStore_Web_Shop.Controllers
     public class BookController : Controller
     {
         [HttpGet]
-        public IActionResult Index(string search)
+        public IActionResult Index()
         {
             using(BookStoreContext db = new BookStoreContext())
             {
-                if (String.IsNullOrEmpty(search))
-                {
-                    List<Book> books = db.Books.Include(book => book.Category).ToList();
 
+                List<Book> books = db.Books.Include(book => book.Category).ToList();
+
+                return View("ViewAdmin", books);
+               
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Index(int? quantityFilter,string? search)
+        {
+            using (BookStoreContext db = new BookStoreContext())
+            {
+                if (quantityFilter <= 0)
+                {
+                    List<Book> books = db.Books.Where(book => book.Quantity <= 0).Include(book => book.Category).ToList();
+                    books = SearchList(search, books);
                     return View("ViewAdmin", books);
                 }
-                else
+                else if (quantityFilter <= 3)
                 {
-                    List<Book> books = db.Books.Where(book => book.Author.Contains(search) || 
-                                                      book.Title.Contains(search)).Include(book => book.Category).ToList();
-
+                    List<Book> books = db.Books.Where(book => book.Quantity <= 3 && book.Quantity > 0).Include(book => book.Category).ToList();
+                    books = SearchList(search, books);
+                    return View("ViewAdmin", books);
+                }
+                else if (quantityFilter > 3)
+                {
+                    List<Book> books = db.Books.Where(book => book.Quantity > 3).Include(book => book.Category).ToList();
+                    books = SearchList(search, books);
+                    return View("ViewAdmin", books);
+                }else
+                {
+                    List<Book> books = db.Books.Include(book => book.Category).ToList();
+                    books = SearchList(search, books);
                     return View("ViewAdmin", books);
                 }
             }
         }
-        
+
+        private List<Book> SearchList(string? search, List<Book> books)
+        {
+            if (!String.IsNullOrEmpty(search))
+            {
+                List<Book> searchedBooks = new();
+
+                foreach (Book book in books) {
+                    if(book.Author.ToLower().Contains(search) || book.Title.ToLower().Contains(search))
+                    {
+                        searchedBooks.Add(book);
+                    }
+                }
+                return searchedBooks;
+            }
+
+            return books;
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
@@ -96,6 +137,7 @@ namespace BookStore_Web_Shop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             using(BookStoreContext db = new BookStoreContext())
@@ -141,6 +183,7 @@ namespace BookStore_Web_Shop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(int id,BookCategories model)
         {
             if(!ModelState.IsValid)
