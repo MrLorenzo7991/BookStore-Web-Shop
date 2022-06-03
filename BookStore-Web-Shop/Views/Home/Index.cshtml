@@ -156,8 +156,15 @@
 
     function bestseller() {
         axios.get('/api/bookapi/bestsellers'
-            ).then(function (response){
-                console.log(response);
+        ).then(function(response) {
+            console.log(response.data);
+            let libri;
+            axios.get('/api/bookapi/get').then((response) => {
+                //console.log(response.data)
+
+            }).catch((error) => {
+                console.log(error)
+            }); 
 
                 //qua ci mettiamo codice che controlla quanto uno a venduto rispetto all'altro dato che l'oggetto 
                 // che arriva è corretto e contiene la somma e il bookId 
