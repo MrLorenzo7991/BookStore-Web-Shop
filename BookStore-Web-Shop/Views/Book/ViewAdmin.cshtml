@@ -12,8 +12,14 @@
             <a class="btn btn-outline-primary w-100" href="@Url.Action("Create", "Book")" role="button">Aggiunngi un nuovo libro</a>
         </div>
         <div>
-            <form class="text-end" asp-action="Index" asp-controller="Book" method="get">
+            <form class="text-end" asp-action="Index" asp-controller="Book" method="post" id="quantityCheck">
                 @Html.AntiForgeryToken()
+                <input type="radio" id="danger" value="0" name="quantityFilter"/>
+                <label for="danger">Scorte Magazzino finite</label>
+                <input type="radio" id="warning" value="3" name="quantityFilter"/>
+                <label for="warning">Scorte Magazzino a rischio</label>
+                <input type="radio" id="ok" value="4" name="quantityFilter"/>
+                <label for="ok">Scorte Magazzino normali</label>
                 <input type="text" placeholder="Cerca..." name="search" />
                 <input  type="submit" value="Cerca" />
             </form>
@@ -50,8 +56,8 @@
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td><p hidden>Quantity</p>@book.Quantity</td>
-                                <td>
+                                <td>@book.Quantity</td>
+                                <td class="bg-light">
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
                                     <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
@@ -72,8 +78,8 @@
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td><p hidden>Quantity</p>@book.Quantity</td>
-                                <td>
+                                <td>@book.Quantity</td>
+                                <td class="bg-light">
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
                                     <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
@@ -94,8 +100,8 @@
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td><p hidden>Quantity</p>@book.Quantity</td>
-                                <td>
+                                <td>@book.Quantity</td>
+                                <td class="bg-light">
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
                                     <a href="@Url.Action("Update", new{ id = book.Id } )" class="btn btn-warning btn-lg d-block my-1" role="button"><i class="fa-solid fa-pen"></i></a>
@@ -115,13 +121,3 @@
         </div>
     </div>
 </div>
-
-
-@section scripts{
-    <script type="text/javascript">
-        for (let i = 0; i < (@Model.Count); i++) {
-            console.log(i);
-        }
-
-    </script>
-}                                        
