@@ -88,7 +88,7 @@ namespace BookStore_Web_Shop.Controllers.Api
                 var obj = db.SellLog.Include(selllog => selllog.Book)
                     .Where(x => x.Date > DateTime.Now.AddDays(-30))
                     .GroupBy(x => new { x.BookId, x.Book.Author, x.Book.Title , x.Book.UrlImage})
-                    .Select(x => new { Bookid = x.Key, Sum = x.Sum(item => item.Quantity) })
+                    .Select(x => new { Book = x.Key, Sum = x.Sum(item => item.Quantity) })
                     .OrderByDescending(x => x.Sum).ToList();
 
 
