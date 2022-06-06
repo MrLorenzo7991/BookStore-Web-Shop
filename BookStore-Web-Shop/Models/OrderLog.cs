@@ -9,8 +9,10 @@ namespace BookStore_Web_Shop.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         [Required]
+        [MoreThan0Validation]
         public int Quantity { get; set; }
         [Required]
+        [NotEmpty]
         public string Supplier { get; set; }
         [Required]
         [MoreThan0Validation]

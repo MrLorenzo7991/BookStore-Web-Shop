@@ -10,22 +10,28 @@ namespace BookStore_Web_Shop.Controllers.Api
     public class BookApiController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get(string? searchString)
+        public IActionResult Get(string? category , string? searchString)
         {
             List<Book> books = new List<Book>();
             using(BookStoreContext db = new BookStoreContext())
             {
-                if (searchString == null)
+                if (category != "Seleziona una categoria" && !String.IsNullOrEmpty(category))
                 {
-                    books = db.Books.Include(book => book.Category).ToList();
+                    books = db.Books.Where(book => book.Category.Name == category).ToList();
                 }
                 else
                 {
-                    books = db.Books.Where(book => book.Title.Contains(searchString) ||
-                                           book.Author.Contains(searchString)
-                                           ).Include(book => book.Category).ToList();
+                    if (searchString == null)
+                    {
+                        books = db.Books.Include(book => book.Category).ToList();
+                    }
+                    else
+                    {
+                        books = db.Books.Where(book => book.Title.Contains(searchString) ||
+                                               book.Author.Contains(searchString)
+                                               ).Include(book => book.Category).ToList();
+                    }
                 }
-             
                 
                 return Ok(books);
             }
@@ -96,6 +102,17 @@ namespace BookStore_Web_Shop.Controllers.Api
                 //forse creando un modello del genere si potrebbe usare, per JS funziona perchè quello non fa domando ma volevo fare il calcolo qui
                 return Ok(obj);
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                categories = db.Categories.ToList();
+            }
+            return Ok(categories);
         }
     }
 }
