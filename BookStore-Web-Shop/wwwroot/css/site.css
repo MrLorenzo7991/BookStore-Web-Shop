@@ -48,4 +48,9 @@ html {
     transform: scale(1.05);
 }
 
+.min-dim {
+    min-height: 200px;
+    object-fit: cover;
+}
+
 
