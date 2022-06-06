@@ -1,4 +1,11 @@
-﻿<div class="container">
+﻿<style>
+    .buy:hover{
+        color:black;
+        background-color: #77C66E;
+    }
+</style>
+
+<div class="container" >
     <div class="row">
         <div class="col fw-bold fs-2" id="titolo">TITOLO DI PROVA DA CANCELLARE</div>
     </div>
@@ -7,15 +14,13 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-3 col-12 shadow-lg p-0 mb-2 bg-body rounded" id="immagine"></div>
-        <div class="col-md-9 col-12 fst-italic" id="descrizione"></div>
+        <div class="col-md-9 col-12 fst-italic" id="descrizione" style="text-align:center"></div>
+        <div class="col-md-2 col-12 fw-bold pt-2" id="like"></div>
+        <div class="col-md-1 col-12 fw-bold pt-2" id="copie-rimanenti" style="text-align:center"></div>
+        <button type="button"  class="btn btn-success col-md-9 col-12 buy" onclick="acquista()">Acquista</button>
     </div>
-    <div class="row">
-        <div class="col-md-3 col-12 fw-bold" id="like"></div>
-        <div class="col-md-9 col-12 fw-bold" id="copie-rimanenti"></div>
-    </div>
-    <div class="row">
-        <button type="button" class="btn btn-success" onclick="acquista()">Acquista</button>
-    </div>
+     
+    
 </div>
 
 @section scripts{
@@ -29,8 +34,8 @@
             document.getElementById("categoria").innerHTML = result.data.category.name;
             document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
             document.getElementById("descrizione").innerHTML = result.data.description;
-            document.getElementById("like").innerHTML = result.data.numberOfLikes;
-            document.getElementById("copie-rimanenti").innerHTML = result.data.quantity;
+            document.getElementById("like").innerHTML = result.data.numberOfLikes +`  <i class="fa-solid fa-heart"></i>`;
+            document.getElementById("copie-rimanenti").innerHTML = result.data.quantity +`  <i class="fa-solid fa-copy"></i> `;
         });
         
         function acquista(){
