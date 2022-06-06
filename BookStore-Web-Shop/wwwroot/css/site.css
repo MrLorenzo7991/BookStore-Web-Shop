@@ -26,10 +26,17 @@ html {
 
 
 
-.card-img-top.custom {
+.card-img-top.best-seller {
     width: 100%;
     height: 20vw;
     min-height: 400px;
+    object-fit: cover;
+}
+
+.card-img-top.custom {
+    width: 100%;
+    height: 13vw;
+    min-height: 300px;
     object-fit: cover;
 }
 

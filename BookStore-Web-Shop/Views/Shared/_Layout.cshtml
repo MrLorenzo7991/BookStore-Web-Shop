@@ -21,35 +21,26 @@
           
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto px-5 " id="navbar">
-             
               <li class="nav-item">
                 <a class="nav-link" href="/Home"  style="color: black;">Home</a>
               </li>
-       
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
-                  Azioni
+                  Area admin
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  
-                    <li><a class="dropdown-item" href="/book/index">Admin</a></li>
-                  <li><a class="dropdown-item" href="/book/create">Crea</a></li>
-                 
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">  
+                    <li><a class="dropdown-item" href="/book/index">Gestione inventario</a></li>
+                    <li><a class="dropdown-item" href="/book/create">Aggiungi libro</a></li> 
                 </ul>
               </li>
-
-            
+                @RenderSection("searchbar", required: false)
             </ul>
           </div>
         </nav>
       </header>
-
-    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
-
     <footer class="border-top footer text-muted mt-auto bg-light text-center">
     <p>Copyright &copy; The Official BookStore 2022</p>
     </footer>
