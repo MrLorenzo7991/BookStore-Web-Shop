@@ -57,8 +57,12 @@
 @section scripts{
     <script>
     
+        document.getElementByClassName("price").onchange = prezzo();
 
 
+function prezzo() {
+  document.getElementById("price").value=parseFloat(document.getElementById("price").value).toFixed(2);
+}
 
     </script>
 }

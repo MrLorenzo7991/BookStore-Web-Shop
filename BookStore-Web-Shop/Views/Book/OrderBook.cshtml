@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-6 col-12 my-2">
                     <span>Prezzo totale:</span>
-                    <input type="number" class="form-control" asp-for="Price" min="0" step="0.01"/>
+                    <input type="text" class="form-control price" asp-for="Price" min="0" step="0.01"/>
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="text-end my-2">
@@ -35,3 +35,16 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+    
+        document.getElementByClassName("price").onchange = prezzo();
+
+
+function prezzo() {
+  document.getElementById("price").value=parseFloat(document.getElementById("price").value).toFixed(2);
+}
+
+    </script>
+}
