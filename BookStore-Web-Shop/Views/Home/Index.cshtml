@@ -92,14 +92,14 @@ search();
 
     FilterCategory();
     function FilterCategory() {
-        let t = document.getElementById('selectCategories').value;
-        console.log(t);
-        BookCard();
+        let category = document.getElementById('selectCategories').value;
+        console.log(category);
+        BookCard(category);
     }
 
-   function BookCard(searchString){
+   function BookCard(category, searchString){
     document.querySelector('.content').innerHTML = '';
-    axios.get('/api/bookapi/get', {params:{searchString : searchString}}).then((result) => 
+    axios.get('/api/bookapi/get', {params:{ category : category , searchString : searchString }}).then((result) => 
     {  
         if(result.data.lenght == 0)
         {
