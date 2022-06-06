@@ -77,7 +77,7 @@
                 </select>
             </div>
         </div>
-        <div class="content row">
+        <div class="content row" id="content">
         </div>
     </div>
 </div>
@@ -107,12 +107,13 @@
 <script type="text/javascript">
 
    //$(document).ready(
-search();
    //);
    document.getElementById('search').addEventListener('keyup', search);
+   let searchString;
+   search();
    function search(){
-       let searchString = document.getElementById("search").value
-       BookCard(searchString);
+        searchString = document.getElementById("search").value;
+        FilterCategory();
    }
 
     PopulateCategories();
@@ -133,12 +134,12 @@ search();
     function FilterCategory() {
         let category = document.getElementById('selectCategories').value;
         console.log(category);
-        BookCard(category);
+        BookCard(category,searchString);
     }
 
    function BookCard(category, searchString){
-    document.querySelector('.content').innerHTML = '';
-    axios.get('/api/bookapi/get', {params:{ category : category , searchString : searchString }}).then((result) => 
+    document.getElementById('content').innerHTML = '';
+    axios.get(`/api/bookapi/get?category=${category}&searchString=${searchString}`).then((result) => 
     {  
         if(result.data.lenght == 0)
         {
@@ -146,16 +147,17 @@ search();
         }
         else
         {
+            document.getElementById('content').innerHTML = ''; 
             result.data.forEach(book => 
                 {
-                    document.querySelector('.content').innerHTML += 
+                    document.getElementById('content').innerHTML += 
                     `   
                     <div class="col mb-3">
                         <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 13rem">
                                 <img onclick="dettagli(${book.id})" class="card-img-top custom" src="${book.urlImage}" alt="" style="">
                             <div class="card-body">
-                                <button class="btn" type="button" onclick="send(${book.id})" >
-                                    <i class="fa-solid fa-heart fs-5 like"></i><span class="fs-5"> ${book.numberOfLikes}</span>
+                                <button class="btn" id="${book.id}" type="button" onclick="send(${book.id})" >
+                                    <i class="fa-solid fa-heart fs-5 like"></i><span id="h_${book.id}" class="fs-5"> ${book.numberOfLikes}</span>
                                 </button>
                                 <h5>${book.title}</h5>
                                 <p> ${book.author}</p>
@@ -164,7 +166,7 @@ search();
                     </div>
                     `
                 });
-                likeAnim();
+                //likeAnim();
         }
     }).catch((error) => {
         console.log("C'è stato un errore: ",error);
@@ -185,11 +187,16 @@ search();
             }).catch(function (error){
                 console.log(error);
             });
+            let heart = document.getElementById(Id);
+            //heart.setAttribute("disabled", "");
+            heart.firstChild.nextElementSibling.classList.add('liked');
+            let counter = document.getElementById(`h_${Id}`).innerHTML;
+            document.getElementById(`h_${Id}`).innerHTML = " " + (parseInt(counter) + 1);
     }
 
 
 
-    
+    /*
    function likeAnim(){
        //let cards=document.querySelectorAll('.card');
        //let likes = document.querySelectorAll('.like');
@@ -201,19 +208,19 @@ search();
               };
         });
         */
-
+    /*
        let liked = document.querySelectorAll('.btn');
        console.log(liked);
        liked.forEach(heart => {
            heart.onclick = () => {
                heart.setAttribute("disabled", "");
-               heart.firstChild.nextElementSibling.classList.add('liked')
+               heart.firstChild.nextElementSibling.classList.add('liked');
                console.log(heart.firstChild.nextElementSibling.classList);
            }
        }
        )
       }
-    
+    */
     
    
       
@@ -258,7 +265,7 @@ search();
                     `   
                     <div class="col mb-3">
                         <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                <img onclick="dettagli(${result.data[i].bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
                             <div class="card-body">
                                 <h5>${result.data[i].book.title}</h5>
                                 <p> ${result.data[i].book.author}</p>

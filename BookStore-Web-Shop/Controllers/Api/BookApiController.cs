@@ -12,30 +12,37 @@ namespace BookStore_Web_Shop.Controllers.Api
         [HttpGet]
         public IActionResult Get(string? category , string? searchString)
         {
+
             List<Book> books = new List<Book>();
             using(BookStoreContext db = new BookStoreContext())
             {
+                books = db.Books.Include(book => book.Category).ToList();
+
                 if (category != "Seleziona una categoria" && !String.IsNullOrEmpty(category))
                 {
-                    books = db.Books.Where(book => book.Category.Name == category).ToList();
+                    books = db.Books.Where(book => book.Category.Name == category).Include(book => book.Category).ToList();
                 }
-                else
+                else if (!String.IsNullOrEmpty(searchString) && searchString != "undefined")
                 {
-                    if (searchString == null)
+                    List<Book> searchedBooks = new();
+
+                    foreach (Book book in books)
                     {
-                        books = db.Books.Include(book => book.Category).ToList();
+                        if (book.Author.ToLower().Contains(searchString) || book.Title.ToLower().Contains(searchString))
+                        {
+                            searchedBooks.Add(book);
+                        }
                     }
-                    else
-                    {
-                        books = db.Books.Where(book => book.Title.Contains(searchString) ||
-                                               book.Author.Contains(searchString)
-                                               ).Include(book => book.Category).ToList();
-                    }
+                    books = searchedBooks;
                 }
+
+
                 
                 return Ok(books);
             }
         }
+
+
         [HttpGet]
         public IActionResult Details(int id)
         {
