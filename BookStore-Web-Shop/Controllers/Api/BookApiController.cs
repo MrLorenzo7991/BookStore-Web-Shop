@@ -18,22 +18,13 @@ namespace BookStore_Web_Shop.Controllers.Api
             {
                 books = db.Books.Include(book => book.Category).ToList();
 
-                if (category != "Seleziona una categoria" && !String.IsNullOrEmpty(category))
+                if (category != "Tutte le categorie" && !String.IsNullOrEmpty(category))
                 {
                     books = db.Books.Where(book => book.Category.Name == category).Include(book => book.Category).ToList();
                 }
-                else if (!String.IsNullOrEmpty(searchString) && searchString != "undefined")
+                if (String.IsNullOrEmpty(searchString) == false && searchString != "undefined")
                 {
-                    List<Book> searchedBooks = new();
-
-                    foreach (Book book in books)
-                    {
-                        if (book.Author.ToLower().Contains(searchString) || book.Title.ToLower().Contains(searchString))
-                        {
-                            searchedBooks.Add(book);
-                        }
-                    }
-                    books = searchedBooks;
+                  books = SearchList(searchString,books);
                 }
 
 
@@ -41,7 +32,19 @@ namespace BookStore_Web_Shop.Controllers.Api
                 return Ok(books);
             }
         }
+        private List<Book> SearchList(string? search, List<Book> books)
+        {
+            List<Book> searchedBooks = new();
 
+            foreach (Book book in books)
+            {
+                if (book.Author.ToLower().Contains(search) || book.Title.ToLower().Contains(search))
+                {
+                    searchedBooks.Add(book);
+                }
+            }
+            return searchedBooks;
+        }
 
         [HttpGet]
         public IActionResult Details(int id)

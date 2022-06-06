@@ -80,14 +80,14 @@
         </div>
         <div class="col mb-3 mx-3">
             <select id="selectCategories" onchange="FilterCategory()">
-                <option selected>Tutte le categorie   </option>
+                <option value="" hidden disabled selected>Seleziona una categoria</option>
             </select>
         </div>
       </div>
   </div>
 
 <div class="container mt-3">
-    <div class="content row">
+    <div class="content row" id="content">
     </div>
 </div>
 
@@ -127,6 +127,7 @@
         axios.get('/api/bookapi/getcategories').then((result) => 
         {
             console.log(result); 
+            document.getElementById('selectCategories').innerHTML += '<option value="Tutte le categorie" >Tutte le categorie</option>'
             result.data.forEach(category => {
                 document.getElementById('selectCategories').innerHTML += `<option value="${category.name}" >${category.name}</option>`
             });
@@ -194,7 +195,7 @@
                 console.log(error);
             });
             let heart = document.getElementById(Id);
-            //heart.setAttribute("disabled", "");
+            heart.setAttribute("disabled", "");
             heart.firstChild.nextElementSibling.classList.add('liked');
             let counter = document.getElementById(`h_${Id}`).innerHTML;
             document.getElementById(`h_${Id}`).innerHTML = " " + (parseInt(counter) + 1);
