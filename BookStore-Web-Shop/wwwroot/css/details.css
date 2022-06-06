@@ -1,0 +1,22 @@
+﻿.buy:hover {
+    color: black;
+    background-color: #77C66E;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+
+    #like {
+        text-align: center;
+    }
+
+    #copie-rimanenti {
+        padding-top: 5px;
+        padding-bottom:8px;
+    }
+    .buy:hover {
+        color: black;
+        background-color: #77C66E;
+    }
+} 

@@ -13,7 +13,7 @@ namespace BookStore_Web_Shop.Models
         [Required]
         public string Customer { get; set; }
         [Required]
-        
+        [MoreThan0Validation]
         public double Price { get; set; }
 
         public SellLog()
