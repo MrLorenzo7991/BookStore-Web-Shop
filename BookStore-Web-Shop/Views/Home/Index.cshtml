@@ -200,11 +200,11 @@ search();
                         <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
                                 <img onclick="dettagli(${book.bookId})" class="card-img-top custom" src="${book.urlImage}" alt="" style="">
                             <div class="card-body">
-                                <button class="btn" type="button" onclick="send(${book.bookId})" >
+                                <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
                                     <i class="fa-solid fa-heart fs-4 like"></i>
                                 </button>
-                                <h5>${book.title}</h5>
-                                <p> ${book.author}</p>
+                                <h5>${result.data[i].book.title}</h5>
+                                <p> ${result.data[i].book.author}</p>
                             </div>
                         </div>
                     </div>
