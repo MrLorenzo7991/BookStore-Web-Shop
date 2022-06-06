@@ -1,29 +1,33 @@
 ﻿@model Book
-
+@section csslink{
+    <link href=""  rel="stylesheet" />
+}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Informazioni</h1>
+            <h2>Informazioni</h2>
             <p>
                 <img src="@Model.UrlImage" alt="@Model.Title" width="500"/>
+               
             </p>
-            <p>
+            <h5>
                 @Model.Title
+            </h5>
+            <p>
+               <i> @Model.Description</i>
             </p>
             <p>
-                @Model.Description
+               Categoria:  @Model.Category.Name
             </p>
             <p>
-                @Model.Price &euro;
+              Prezzo:  @Model.Price <i class="fa-solid fa-euro-sign"></i>
+            </p>  
+            
+            <p>
+               Like: @Model.NumberOfLikes  <i class="fa-solid fa-heart"></i>
             </p>
             <p>
-                Categoria: @Model.Category.Name
-            </p>
-            <p>
-                @Model.NumberOfLikes
-            </p>
-            <p>
-                @Model.Quantity
+               Copie a disposizione: @Model.Quantity      <i class="fa-solid fa-copy"></i>
             </p>
         </div>
     </div>
