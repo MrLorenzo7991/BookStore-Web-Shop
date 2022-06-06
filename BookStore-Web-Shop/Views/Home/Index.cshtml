@@ -142,43 +142,22 @@
    axios.get('/api/bookapi/bestsellers').then((result) => 
     { 
         let size = result.data.length;
-        console.log(result)
-        if(size <= 3){
+        if(size == 0){
+            document.querySelector('.carosello').innerHTML = 
+            `
+            <div><h1>Questo mese non abbiamo venduto libri...</h1></div>
+            `
+        }
+        if(size <= 3)
+        {
             document.querySelector('.carosello').innerHTML = 
             `
             <div class="carousel-item active">
                 <div class="row first-slide"></div>
             </div> 
             `
-        }else if(size <= 6){
-            document.querySelector('.carosello').innerHTML = 
-            `
-                <div class="carousel-item active">
-                    <div class="row first-slide"></div>
-                </div> 
-                <div class="carousel-item">
-                    <div class="row second-slide"></div>
-                </div>
-            `
-        }else{
-            document.querySelector('.carosello').innerHTML = 
-            `
-                <div class="carousel-item active">
-                    <div class="row first-slide"></div>
-                </div> 
-                <div class="carousel-item">
-                    <div class="row second-slide"></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row third-slide"></div>
-                </div>
-            `
-        }
-
-        if(size <= 3)
-        {
             
-            result.data.forEach(book => 
+            for(let i = 0; i < size; i++) 
                 {
                     document.querySelector('.first-slide').innerHTML += 
                     `   
@@ -195,11 +174,19 @@
                         </div>
                     </div>
                     `
-                })
+                }
         }
         else if(size <=6)
         {
-            
+            document.querySelector('.carosello').innerHTML = 
+            `
+                <div class="carousel-item active">
+                    <div class="row first-slide"></div>
+                </div> 
+                <div class="carousel-item">
+                    <div class="row second-slide"></div>
+                </div>
+            `
             for(let i = 0; i < 3; i++)
             {
                 document.querySelector('.first-slide').innerHTML += 
@@ -241,7 +228,18 @@
         }
         else
         {
-            
+            document.querySelector('.carosello').innerHTML = 
+            `
+                <div class="carousel-item active">
+                    <div class="row first-slide"></div>
+                </div> 
+                <div class="carousel-item">
+                    <div class="row second-slide"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row third-slide"></div>
+                </div>
+            `
             for(let i = 0; i < 3; i++)
             {
                 document.querySelector('.first-slide').innerHTML += 
@@ -302,161 +300,6 @@
     }).catch((error) => {
         console.log(error)
     });
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /*axios.get('/api/bookapi/bestsellers').then((result1) => {
-        console.log(result1)
-        let size = result1.data.length;
-        if(size <= 3)
-        {
-            document.querySelector('.carosello').innerHTML = `<div class="carousel-item active first-slide">`
-            for(let q=0; q<3; q++)
-            {
-                let id = result1.data[q].bookid;
-                axios.get('/api/bookapi/details', {
-                    params: {
-                        id: id
-                    }
-                }).then((result2) => {
-                    document.querySelector('.carosello').innerHTML += 
-                        `   
-                        <div class="col mb-3 d-inline-block">
-                            <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                    <img onclick="dettagli(${result2.data.id})" class="card-img-top custom" src="${result2.data.urlImage}" alt="" style="">
-                                <div class="card-body">
-                                    <button class="btn" type="button" onclick="send(${result2.data.id})" >
-                                        <i class="fa-solid fa-heart fs-4 like"></i>
-                                    </button>
-                                    <h5>${result2.data.title}</h5>
-                                    <p> ${result2.data.author}</p>
-                                </div>
-                            </div>
-                        </div>
-                        `
-                }).catch((error2) => {
-                console.log(error2)
-                })
-            }
-                document.querySelector('.carosello').innerHTML = `</div>`
-        }
-        else
-        {
-            //prima slidde
-            document.querySelector('.carosello').innerHTML = `<div class="carousel-item active first-slide"></div>`
-            for(let q=0; q<3; q++)
-            {
-                let id = result1.data[q].bookid;
-                axios.get('/api/bookapi/details', {
-                    params: {
-                        id: id
-                    }
-                }).then((result2) => {
-                    document.querySelector('.first-slide').innerHTML += 
-                        `   
-                        <div class="col mb-3 d-inline-block">
-                            <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                    <img onclick="dettagli(${result2.data.id})" class="card-img-top custom" src="${result2.data.urlImage}" alt="" style="">
-                                <div class="card-body">
-                                    <button class="btn" type="button" onclick="send(${result2.data.id})" >
-                                        <i class="fa-solid fa-heart fs-4 like"></i>
-                                    </button>
-                                    <h5>${result2.data.title}</h5>
-                                    <p> ${result2.data.author}</p>
-                                </div>
-                            </div>
-                        </div>
-                        `
-                }).catch((error2) => {
-                console.log(error2)
-                })
-            }
-            //fine prima slide
-            //successive
-            let numberOfSlides = Math.ceil(size/3);
-            for(i=0; i<(numberOfSlides-1);i++)
-            {
-                let indiceCard = 3;
-                if((size-indiceCard) >= 3)
-                {
-                    debugger;
-                    //genero le slide centali
-                    document.querySelector('.carosello').innerHTML += `<div class="carousel-item ${i}-slide"></div>`
-                    for(j=indiceCard; j < indiceCard+3; j++)
-                    {
-                        let id = result1.data[j].bookid;
-                        axios.get('/api/bookapi/details', {
-                            params: {
-                                id: id
-                            }
-                        }).then((result2) => {
-                            let nomeclasse= '.'+ i + '-slide'
-                            document.querySelector(nomeclasse).innerHTML += 
-                                `   
-                                <div class="col mb-3 d-inline-block">
-                                    <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                            <img onclick="dettagli(${result2.data.id})" class="card-img-top custom" src="${result2.data.urlImage}" alt="" style="">
-                                        <div class="card-body">
-                                            <button class="btn" type="button" onclick="send(${result2.data.id})" >
-                                                <i class="fa-solid fa-heart fs-4 like"></i>
-                                            </button>
-                                            <h5>${result2.data.title}</h5>
-                                            <p> ${result2.data.author}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                `
-                        }).catch((error2) => {
-                        console.log(error2)
-                        })
-                        indiceCard++
-                    }
-                    document.querySelector('.carosello').innerHTML += `<div class="carousel-item">`
-                } 
-
-
-                else if((size-indiceCard) >= 3 && (size-indiceCard) != 0)
-                {
-                    document.querySelector('.carosello').innerHTML += `<div class="carousel-item last-slide"></div>`
-                    for(j=indiceCard; indiceCard < size-indiceCard; j++)
-                    {
-                        let id = result1.data[j].bookid;
-                        axios.get('/api/bookapi/details', {
-                            params: {
-                                id: id
-                            }
-                        }).then((result2) => {
-                            document.querySelector('.last-slide').innerHTML += 
-                                `   
-                                <div class="col mb-3 d-inline-block">
-                                    <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                            <img onclick="dettagli(${result2.data.id})" class="card-img-top custom" src="${result2.data.urlImage}" alt="" style="">
-                                        <div class="card-body">
-                                            <button class="btn" type="button" onclick="send(${result2.data.id})" >
-                                                <i class="fa-solid fa-heart fs-4 like"></i>
-                                            </button>
-                                            <h5>${result2.data.title}</h5>
-                                            <p> ${result2.data.author}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                `
-                        }).catch((error2) => {
-                        console.log(error2)
-                        })
-                        indiceCard++
-                    }
-                    document.querySelector('.carosello').innerHTML += `<div class="carousel-item">`
-                }
-            }
-        }
-    })*/
 </script>
 }
 
