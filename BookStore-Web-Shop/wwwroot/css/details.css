@@ -1,10 +1,4 @@
-﻿.buy:hover {
-    color: black;
-    background-color: #77C66E;
-}
-
-
-@media only screen and (max-width: 800px) {
+﻿@media only screen and (max-width: 800px) {
 
 
     #like {

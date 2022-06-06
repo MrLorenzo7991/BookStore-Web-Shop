@@ -12,10 +12,10 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-3 col-12 shadow-lg p-0 mb-2 bg-body rounded" id="immagine"></div>
-        <div class="col-md-9 col-12 fst-italic" id="descrizione" style="text-align:center"></div>
-        <div class="col-md-2 col-12 fw-bold pt-2" id="like"></div>
-        <div class="col-md-1 col-12 fw-bold pt-2" id="copie-rimanenti" style="text-align:center"></div>
-        <button type="button"  class="btn btn-success col-md-9 col-12 buy" onclick="acquista()">Acquista</button>
+        <div class="col-md-9 col-12" id="descrizione" style="text-align:center"></div>
+        <div class="col-md-1 col-12 fw-bold pt-2" id="like"></div>
+        <div class="col-md-2 col-12 fw-bold pt-2 text-end" id="copie-rimanenti"></div>
+        <button type="button"  class="btn col-md-9 col-12 buy" onclick="acquista()" id="buy">Acquista</button>
     </div>
      
     
@@ -29,11 +29,18 @@
             console.log("sto in axios");
             console.log(result);
             document.getElementById("titolo").innerHTML = result.data.title;
-            document.getElementById("categoria").innerHTML = result.data.category.name;
+            document.getElementById("categoria").innerHTML = result.data.category.name + " - " + result.data.price + '€';
             document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
             document.getElementById("descrizione").innerHTML = result.data.description;
             document.getElementById("like").innerHTML = result.data.numberOfLikes +`  <i class="fa-solid fa-heart"></i>`;
-            document.getElementById("copie-rimanenti").innerHTML = result.data.quantity +`  <i class="fa-solid fa-copy"></i> `;
+            if(result.data.quantity > 0){
+                document.getElementById("copie-rimanenti").innerHTML = result.data.quantity +`  <i class="fa-solid fa-copy"></i> `;
+                document.getElementById("buy").classList.add('btn-success');
+            }else{
+                document.getElementById("copie-rimanenti").innerHTML = `<span>Non disp.</span><i class="fa-solid fa-copy"></i> `;
+                document.getElementById("buy").innerHTML = `Prenota`;
+                document.getElementById("buy").classList.add('btn-warning');
+            }
         });
         
         function acquista(){
