@@ -97,5 +97,16 @@ namespace BookStore_Web_Shop.Controllers.Api
                 return Ok(obj);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                categories = db.Categories.ToList();
+            }
+            return Ok(categories);
+        }
     }
 }
