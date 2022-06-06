@@ -62,7 +62,9 @@
 <script src="~/js/ListBook.js"></script>
 <script type="text/javascript">
 
-   search();
+   //$(document).ready(
+search();
+   //);
    document.getElementById('search').addEventListener('keyup', search);
    function search(){
        let searchString = document.getElementById("search").value
@@ -98,9 +100,10 @@
                     </div>
                     `
                 });
+                likeAnim();
         }
     }).catch((error) => {
-        console.log("C'è stato un errore: ");
+        console.log("C'è stato un errore: ",error);
     });
 } 
 
@@ -123,18 +126,29 @@
 
 
     
-    /*
-   $(document).ready(function(){
-       let card=document.querySelectorAll('.card');
-       let like=document.querySelectorAll('.like');
+   function likeAnim(){
+       //let cards=document.querySelectorAll('.card');
+       //let likes = document.querySelectorAll('.like');
 
-       card.forEach(like=>{
-       like.onclick = () => {
-       card.classList.add('.like'); 
-          
-          };
+       /*
+       likes.forEach(like=>{
+           like.onclick = () => {
+               like.classList.add('liked'); 
+              };
         });
-      });*/
+        */
+
+       let liked = document.querySelectorAll('.btn');
+       console.log(liked);
+       liked.forEach(heart => {
+           heart.onclick = () => {
+               heart.setAttribute("disabled", "");
+               heart.firstChild.nextElementSibling.classList.add('liked')
+               console.log(heart.firstChild.nextElementSibling.classList);
+           }
+       }
+       )
+      }
     
     
    
@@ -156,14 +170,31 @@
                 <div class="row first-slide"></div>
             </div> 
             `
+        }else{
+            document.querySelector('.carosello').innerHTML = 
+            `
+                <div class="carousel-item active">
+                    <div class="row first-slide"></div>
+                </div> 
+                <div class="carousel-item">
+                    <div class="row second-slide"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row third-slide"></div>
+                </div>
+            `
+        }
+
+        if(size <= 3)
+        {
             
-            for(let i = 0; i < size; i++) 
+            result.data.forEach(book => 
                 {
                     document.querySelector('.first-slide').innerHTML += 
                     `   
                     <div class="col mb-3">
                         <div class="card text-center h-100 mx-auto shadow" id="zoom" style="width: 18rem">
-                                <img onclick="dettagli(${book.bookId})" class="card-img-top custom" src="${book.urlImage}" alt="" style="">
+                                <img onclick="dettagli(${result.data[i].book.bookId})" class="card-img-top custom" src="${result.data[i].book.urlImage}" alt="" style="">
                             <div class="card-body">
                                 <button class="btn" type="button" onclick="send(${result.data[i].book.bookId})" >
                                     <i class="fa-solid fa-heart fs-4 like"></i>
@@ -174,7 +205,7 @@
                         </div>
                     </div>
                     `
-                }
+                })
         }
         else if(size <=6)
         {
@@ -298,7 +329,7 @@
             }
         }
     }).catch((error) => {
-        console.log(error)
+        console.log('Errore nel carosello',error)
     });
 </script>
 }
