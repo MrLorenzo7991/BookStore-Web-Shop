@@ -5,7 +5,7 @@
 
 <div class="container" >
     <div class="row">
-        <div class="col fw-bold fs-2" id="titolo">TITOLO DI PROVA DA CANCELLARE</div>
+        <div class="col fw-bold fs-2" id="titolo"></div>
     </div>
     <div class="row mt-2">
         <div class="col fst-italic" id="categoria"></div>
@@ -13,12 +13,15 @@
     <div class="row mt-3">
         <div class="col-md-3 col-12 shadow-lg p-0 mb-2 bg-body rounded" id="immagine"></div>
         <div class="col-md-9 col-12" id="descrizione" style="text-align:center"></div>
-        <div class="col-md-1 col-12 fw-bold pt-2" id="like"></div>
-        <div class="col-md-2 col-12 fw-bold pt-2 text-end" id="copie-rimanenti"></div>
-        <button type="button"  class="btn col-md-9 col-12 buy" onclick="acquista()" id="buy">Acquista</button>
     </div>
-     
-    
+    <div class="row mt">
+        <div class="col-md-1 col-6 fw-bold pt-2 text-start" id="like"></div>
+        <div class="col-md-2 col-6 fw-bold pt-2 text-end" id="copie-rimanenti"></div>
+        <div class="col-md-9 text-end">
+            <span id="prezzo" class="mx-4 fw-bold fst-italic"></span>
+            <button type="button"  class="btn buy" onclick="acquista()" id="buy">Acquista</button>
+        </div>
+    </div>   
 </div>
 
 @section scripts{
@@ -29,9 +32,10 @@
             console.log("sto in axios");
             console.log(result);
             document.getElementById("titolo").innerHTML = result.data.title;
-            document.getElementById("categoria").innerHTML = result.data.category.name + " - " + result.data.price + '€';
+            document.getElementById("categoria").innerHTML = result.data.category.name;
             document.getElementById("immagine").innerHTML = `<img src="${result.data.urlImage}" class="w-100" alt="${result.data.title}"/>`
             document.getElementById("descrizione").innerHTML = result.data.description;
+            document.getElementById("prezzo").innerHTML =result.data.price + '€';
             document.getElementById("like").innerHTML = result.data.numberOfLikes +`  <i class="fa-solid fa-heart"></i>`;
             if(result.data.quantity > 0){
                 document.getElementById("copie-rimanenti").innerHTML = result.data.quantity +`  <i class="fa-solid fa-copy"></i> `;
