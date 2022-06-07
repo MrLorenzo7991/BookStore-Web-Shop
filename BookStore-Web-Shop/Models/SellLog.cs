@@ -9,6 +9,7 @@ namespace BookStore_Web_Shop.Models
         [Key]
         public int Id { get; set; } 
         public DateTime? Date { get; set; }
+        [MoreThan0ValidationInt]
         public int Quantity { get; set; }
         [Required]
         public string Customer { get; set; }

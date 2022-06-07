@@ -12,11 +12,12 @@
             <form method="post" class="row" onsubmit="preventDefault()">
                 <div class="col-md-6 col-12 my-2">
                     <span>Come ti chiami?</span>
-                    <input type="text" class="form-control" id="nome"/>
+                    <input type="text" class="form-control" id="nome" required/>
+                    <div id="noNameMessage"></div>
                 </div>
                 <div class="col-md-6 col-12 my-2">
                     <span>Quante copie vuoi acquistare?</span>
-                    <input type="number" class="form-control" min="0" id="quantita"/>
+                    <input type="number" class="form-control" min="0" id="quantita" required/>
                     <div id="outOfStockMessage"></div>
                 </div>
                 <div class="col-md-6 col-12 my-2">
@@ -55,12 +56,17 @@
             if(quantity < numberOfCopies){
                 document.getElementById("outOfStockMessage").innerHTML = `<span class="text-danger">La quantità di copie specificata non è disponibile, i tempi di consegna potrebbero allungarsi</span>`
             }
-            document.getElementById("prezzoTotale").innerHTML = `${numberOfCopies * price} €`
+            let prezzo = (numberOfCopies * price).toFixed(2)
+            document.getElementById("prezzoTotale").innerHTML = `${prezzo} €`
         }
 
         function send(){
             var quantita = document.getElementById("quantita").value;
             var cliente = document.getElementById("nome").value;
+            if(cliente.trim() == ""){
+                cliente = null;
+                document.getElementById("noNameMessage").innerHTML = `<span class="text-danger">Devi inserire un nome!</span>`
+            }
             var data = 
             {
                 BookId: id,
