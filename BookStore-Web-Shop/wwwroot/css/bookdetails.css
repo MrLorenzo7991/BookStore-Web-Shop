@@ -1,6 +1,26 @@
-﻿@media only screen and (max-width: 500px) {
+﻿
+[class*="col-"] {
+    width: 100%;
+}
+
+@media only screen and (max-width:380px) {
+    .image {
+        width: 250px;
+    }
+
+    .titolo {
+        text-align: center;
+    }
+}
 
 
+@media only screen and (min-width: 970px) {
 
+    .col-3 {
+        width: 25%;
+    }
 
+    .col-6 {
+        width: 50%;
+    }
 }
