@@ -50,13 +50,13 @@
                         {
                             @if(book.Quantity<=0)
                             {
-                            <tr class="bg-danger">
+                            <tr>
                                 <td>@book.Id</td>
                                 <td><img src="@book.UrlImage" alt="Copertina libro" width="300"/></td>
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td>@book.Quantity</td>
+                                <td class="bg-danger">@book.Quantity</td>
                                 <td class="bg-light">
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
@@ -72,13 +72,13 @@
                             }
                             else if(book.Quantity<=3)
                             {
-                            <tr class="bg-warning">
+                            <tr>
                                 <td>@book.Id</td>
                                 <td><img src="@book.UrlImage" alt="Copertina libro" width="300"/></td>
                                 <td><div class="fs-5"><strong>@book.Title</strong> - <span><em>@book.Author</em></span></div> <p class="mt-2">@book.Description</p></td>
                                 <td>@book.Category.Name</td>
                                 <td>@book.Price</td>
-                                <td>@book.Quantity</td>
+                                <td class="bg-warning">@book.Quantity</td>
                                 <td class="bg-light">
                                     <a href="@Url.Action("Details" , "Book", new{ id = book.Id } )" class="btn btn-primary btn-lg d-block my-1" role="button"><i class="fa-solid fa-info"></i></a> 
                                     <a href="@Url.Action("OrderBook" , new{ id = book.Id } )" class="btn btn-success btn-lg d-block my-1" role="button" ><i class="fa-solid fa-plus"></i></a>
