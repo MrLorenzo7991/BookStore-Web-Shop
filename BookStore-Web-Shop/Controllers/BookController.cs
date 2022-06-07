@@ -270,8 +270,30 @@ namespace BookStore_Web_Shop.Controllers
             {
                 return NotFound();
             }
+        }
 
-            
+        [HttpGet]
+        public IActionResult SellLogRegistry()
+        {
+            List<SellLog> sellLog = new();
+            using(BookStoreContext db = new BookStoreContext())
+            {
+                sellLog = db.SellLog.ToList();
+            }
+
+            return View(sellLog);
+        }
+
+        [HttpGet]
+        public IActionResult OrderLogRegistry()
+        {
+            List<OrderLog> orderLog = new();
+            using (BookStoreContext db = new BookStoreContext())
+            {
+                orderLog = db.OrderLog.ToList();
+            }
+
+            return View(orderLog);
         }
     }
 }
