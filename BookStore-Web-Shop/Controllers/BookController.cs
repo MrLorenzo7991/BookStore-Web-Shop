@@ -31,15 +31,15 @@ namespace BookStore_Web_Shop.Controllers
                     books = SearchList(search, books);
                     return View("ViewAdmin", books);
                 }
-                else if (quantityFilter <= 3)
+                else if (quantityFilter <= 9)
                 {
-                    List<Book> books = db.Books.Where(book => book.Quantity <= 3 && book.Quantity > 0).Include(book => book.Category).ToList();
+                    List<Book> books = db.Books.Where(book => book.Quantity <= 9 && book.Quantity > 0).Include(book => book.Category).ToList();
                     books = SearchList(search, books);
                     return View("ViewAdmin", books);
                 }
-                else if (quantityFilter > 3)
+                else if (quantityFilter > 9)
                 {
-                    List<Book> books = db.Books.Where(book => book.Quantity > 3).Include(book => book.Category).ToList();
+                    List<Book> books = db.Books.Where(book => book.Quantity > 9).Include(book => book.Category).ToList();
                     books = SearchList(search, books);
                     return View("ViewAdmin", books);
                 }else

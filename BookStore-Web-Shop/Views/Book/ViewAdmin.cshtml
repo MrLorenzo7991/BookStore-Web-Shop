@@ -8,20 +8,22 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-3 col-md-6 col-12 mx-auto">
+        <div class="col-lg-3 col-md-6 col-12 mx-auto mb-3">
             <a class="btn btn-outline-primary w-100" href="@Url.Action("Create", "Book")" role="button">Aggiunngi un nuovo libro</a>
         </div>
         <div>
-            <form class="text-end" asp-action="Index" asp-controller="Book" method="post" id="quantityCheck">
+            <form class="text-center" asp-action="Index" asp-controller="Book" method="post" id="quantityCheck">
                 @Html.AntiForgeryToken()
                 <input type="radio" id="danger" value="0" name="quantityFilter"/>
                 <label for="danger">Scorte Magazzino finite</label>
-                <input type="radio" id="warning" value="3" name="quantityFilter"/>
+                <input type="radio" id="warning" value="9" name="quantityFilter"/>
                 <label for="warning">Scorte Magazzino a rischio</label>
-                <input type="radio" id="ok" value="4" name="quantityFilter"/>
-                <label for="ok">Scorte Magazzino normali</label>
+                <input type="radio" id="ok" value="10" name="quantityFilter"/>
+                <label for="ok">Scorte Magazzino normali</label><br />
+                <div class="mt-1">
                 <input type="text" placeholder="Cerca..." name="search" />
                 <input  type="submit" value="Cerca" />
+                </div>
             </form>
         </div>
     </div>
@@ -29,7 +31,7 @@
         <div class=col-12>
             @if(Model.Count() == 0)
             {
-                <h2>Non ci sono ancora libri presenti</h2>
+                <h2 class="text-center">Non ci sono libri presenti</h2>
             }
             else
             {
