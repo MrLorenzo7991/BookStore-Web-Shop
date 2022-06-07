@@ -1,25 +1,28 @@
-﻿[class*="col-"] {
-    width: 100%;
-}
-
-@media only screen and (max-width:380px) {
-    .image {
-        width: 250px;
-    }
-
-    .titolo {
-        text-align: center;
-    }
+﻿@model Book
+@section csslink{
+    <link href="~/css/bookdetails.css"  rel="stylesheet" />
 }
 
 
-@media only screen and (min-width: 970px) {
+<div class="container"  >
 
-    .col-3 {
-        width: 25%;
-    }
+    <div class="row">
+          <div class="col-6 col-s-9">
+              <h1 class="titolo" >@Model.Title</h1>
+    <p ><img class="image" src="@Model.UrlImage" alt="@Model.Title" style="max-width:500px;"/></p>
+          </div>
 
-    .col-6 {
-        width: 50%;
-    }
-}
+    <div class="col-3 col-s-12">
+    <div>
+            <h5 style="text-align:center;padding-top:55px;">Informazioni</h5>
+            <p><i> @Model.Description</i></p>
+            <p>Categoria:  @Model.Category.Name</p>
+            <p>Prezzo:  @Model.Price <i class="fa-solid fa-euro-sign"></i></p> 
+            <p> Like: @Model.NumberOfLikes  <i class="fa-solid fa-heart"></i></p>
+            <p> Copie a disposizione: @Model.Quantity <i class="fa-solid fa-copy"></i></p>
+
+    </div>
+    </div>
+
+   </div>
+</div>
