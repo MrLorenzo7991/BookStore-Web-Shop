@@ -1,0 +1,31 @@
+﻿@model List<SellLog>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Cliente</th>
+            <th>Quantità</th>
+            <th>Prezzo</th>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach (SellLog log in Model)
+        {
+          <tr>
+            <th>@log.Id</th>
+            <th>@log.Date</th>
+            <th>@log.Customer</th>
+            <th>@log.Quantity</th>
+            <th>@log.Price</th>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
